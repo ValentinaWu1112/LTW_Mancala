@@ -1,0 +1,35 @@
+html{
+    background-color: #4C566A;
+    font-family: "Monaco", monospace;
+}
+
+
+.BarraTopo {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: #D8DEE9;
+    padding: 10px;
+}
+
+.Logotipo, .BotaoInstrucoes, .BotaoClassificacoes, .Login {
+    display: inline-block;
+    margin: 5px;
+    font-size: 20;
+}
+
+.Logotipo {
+    font-family: 'Aclonica';
+    font-size: 60;
+}
+
+.Instrucoes, .Classificacoes {
+    display: none; /*inline-block*/
+}
+
+.Login {
+    color: blue;
+    position: absolute;
+    font-size: 30;
+    top: 10px;
+    right: 10px;
+}
