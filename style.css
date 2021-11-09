@@ -1,17 +1,17 @@
 html{
-    background-color: #4C566A;
+    background-color: #2E3440;
     font-family: "Monaco", monospace;
+    color: white;
 }
 
 
 .BarraTopo {
-    position: -webkit-sticky;
-    position: sticky;
     background-color: #D8DEE9;
+    color: black;
     padding: 10px;
 }
 
-.Logotipo, .BotaoInstrucoes, .BotaoClassificacoes, .Login {
+.Logotipo, .BotaoInstrucoes, .BotaoConfiguracoes, .BotaoClassificacoes, .BotaoLogin {
     display: inline-block;
     margin: 5px;
     font-size: 20;
@@ -22,14 +22,82 @@ html{
     font-size: 60;
 }
 
-.Instrucoes, .Classificacoes {
-    display: none; /*inline-block*/
+.BotaoInstrucoes{
+    position: relative;
+    left: 100px;
+    top: -10px;
 }
 
-.Login {
-    color: blue;
-    position: absolute;
+.BotaoConfiguracoes{
+    position: relative;
+    left: 200px;
+    top: -10px;
+}
+
+.BotaoClassificacoes{
+    position: relative;
+    left: 300px;
+    top: -10px;
+}
+
+.BotaoLogin {
+    float: right;
     font-size: 30;
     top: 10px;
     right: 10px;
+}
+
+.Instrucoes {
+    z-index: 2; /*IDEIA!! AUMENTAR O Z-INDEX COM JS*/
+
+    /*Para ficar centrado com o botão*/
+    position: absolute;
+    top: 100px;
+    left: 225px;
+
+    margin: 20px;
+    padding: 5px;
+    width: 600px;
+    height: auto;
+    background-color: green;
+    display: block;
+
+}
+
+.Configuracoes {
+    z-index: 4; /*IDEIA!! AUMENTAR O Z-INDEX COM JS*/
+
+    /*Para ficar centrado com o botão*/
+    position: absolute;
+    top: 100px;
+    left: 450px;
+
+    margin: 20px;
+    padding: 5px;
+    width: 600px;
+    height: auto;
+    background-color: red;
+    display: block;
+
+}
+
+.Classificacoes {
+    z-index: 6; /*IDEIA!! AUMENTAR O Z-INDEX COM JS*/
+
+    /*Para ficar centrado com o botão*/
+    position: absolute;
+    top: 100px;
+    left: 700px;
+
+    margin: 20px;
+    padding: 5px;
+    width: 600px;
+    height: auto;
+    background-color: blueviolet;
+    display: block;
+
+}
+
+.Instrucoes, .Classificacoes, .Configuracoes, .Login {
+    display: none; /*inline-block*/
 }
