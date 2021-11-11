@@ -98,6 +98,42 @@ html{
 
 }
 
+
 .Instrucoes, .Classificacoes, .Configuracoes, .Login {
     display: none; /*inline-block*/
+}
+
+.Tabuleiro {
+
+    margin: 10px;
+    height: 400px;
+    width: 800px;
+    background-color: grey;
+    border-radius: 25px;
+    
+    position: relative;
+    top: 20%;
+    left: 25%;
+}
+
+.Armazens {
+    display: inline-block;
+    margin: 25px;
+    height: 350px;
+    width: 80px;
+    border-radius: 50px;
+    background-color: brown;
+}
+
+.Cavidades {
+    display: inline-block;
+    /*margin: 10px;*/
+    height: 150px;
+    width: 80px;
+    border-radius: 50px;
+    background-color: pink;
+
+    position: relative;
+    left: 0px;
+    top: -200px;
 }
