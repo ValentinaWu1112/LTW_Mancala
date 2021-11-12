@@ -1,19 +1,25 @@
-html{
-    background-color: #2E3440;
+html {
+    background-color: #2e2e2e;
+    background: radial-gradient(rgb(100, 100, 100), rgb(0, 0, 0));
     font-family: "Monaco", monospace;
     color: white;
 }
 
-
 .BarraTopo {
-    background-color: #D8DEE9;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(83, 83, 83);
     color: black;
     padding: 10px;
 }
 
-.Logotipo, .BotaoInstrucoes, .BotaoConfiguracoes, .BotaoClassificacoes, .BotaoLogin {
-    display: inline-block;
-    margin: 5px;
+.Logotipo,
+.BotaoInstrucoes,
+.BotaoConfiguracoes,
+.BotaoClassificacoes,
+.BotaoLogin {
+    /*display: inline-block;*/
+    margin: auto;
     font-size: 20;
 }
 
@@ -22,118 +28,137 @@ html{
     font-size: 60;
 }
 
-.BotaoInstrucoes{
+
+/*
+.BotaoInstrucoes {
     position: relative;
     left: 100px;
     top: -10px;
 }
 
-.BotaoConfiguracoes{
+.BotaoConfiguracoes {
     position: relative;
     left: 200px;
     top: -10px;
 }
 
-.BotaoClassificacoes{
+.BotaoClassificacoes {
     position: relative;
     left: 300px;
     top: -10px;
 }
 
+
 .BotaoLogin {
     float: right;
+    
     font-size: 30;
-    top: 10px;
+        top: 10px;
     right: 10px;
+    
 }
+*/
 
 .Instrucoes {
-    z-index: 2; /*IDEIA!! AUMENTAR O Z-INDEX COM JS*/
-
+    z-index: 2;
+    /*IDEIA!! AUMENTAR O Z-INDEX COM JS*/
     /*Para ficar centrado com o botão*/
     position: absolute;
     top: 100px;
     left: 225px;
-
     margin: 20px;
     padding: 5px;
     width: 600px;
     height: auto;
     background-color: green;
     display: block;
-
 }
 
 .Configuracoes {
-    z-index: 4; /*IDEIA!! AUMENTAR O Z-INDEX COM JS*/
-
+    z-index: 4;
+    /*IDEIA!! AUMENTAR O Z-INDEX COM JS*/
     /*Para ficar centrado com o botão*/
     position: absolute;
     top: 100px;
     left: 450px;
-
     margin: 20px;
     padding: 5px;
     width: 600px;
     height: auto;
     background-color: red;
     display: block;
-
 }
 
 .Classificacoes {
-    z-index: 6; /*IDEIA!! AUMENTAR O Z-INDEX COM JS*/
-
+    z-index: 6;
+    /*IDEIA!! AUMENTAR O Z-INDEX COM JS*/
     /*Para ficar centrado com o botão*/
     position: absolute;
     top: 100px;
     left: 700px;
-
     margin: 20px;
     padding: 5px;
     width: 600px;
     height: auto;
     background-color: blueviolet;
     display: block;
-
 }
 
-
-.Instrucoes, .Classificacoes, .Configuracoes, .Login {
-    display: none; /*inline-block*/
+.Instrucoes,
+.Classificacoes,
+.Configuracoes,
+.Login {
+    display: none;
+    /*inline-block*/
 }
 
 .Tabuleiro {
-
+    /*display: inline-block;*/
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-flow: row wrap;
     margin: 10px;
     height: 400px;
     width: 800px;
-    background-color: grey;
+    background-color: rgb(83, 83, 83);
     border-radius: 25px;
-    
     position: relative;
     top: 20%;
-    left: 25%;
+    left: 20%;
 }
 
 .Armazens {
-    display: inline-block;
+    /*display: inline-block*/
+    /*display: inline-flex;
+    flex-basis: auto;*/
+    /*flex-wrap: wrap;*/
+    flex-flow: row wrap;
     margin: 25px;
     height: 350px;
     width: 80px;
     border-radius: 50px;
     background-color: brown;
+    /*z-index: -1;*/
 }
 
 .Cavidades {
-    display: inline-block;
-    /*margin: 10px;*/
+    margin: 5px;
+    /*display: inline-flex;*/
+    align-content: center;
+    align-items: center;
     height: 150px;
     width: 80px;
     border-radius: 50px;
     background-color: pink;
-
-    position: relative;
+    /*z-index: -1;*/
+    /*position: relative;
     left: 0px;
-    top: -200px;
+    top: 30px;*/
+}
+
+.Sementes {
+    height: 15px;
+    width: 15px;
+    border-radius: 10px;
+    background-color: gold;
 }
