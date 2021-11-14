@@ -144,7 +144,8 @@ html {
     position: relative;
     left: 0px;
     top: 20px;
-    width: 600px; /*80*6 + 5*5*/
+    width: 600px;
+    /*80*6 + 5*5*/
     height: 170px;
 }
 
@@ -152,7 +153,8 @@ html {
     position: relative;
     left: 130px;
     top: -190px;
-    width: 600px; /*80*6 + 5*10*/
+    width: 600px;
+    /*80*6 + 5*10*/
     height: 170px;
 }
 
@@ -170,12 +172,9 @@ html {
 
 .Cavidade {
     margin: 5px;
-    display: inline-block;
-    /*display: inline-flex;*/
-    /*
-    align-content: center;
+    display: inline-flex;
     align-items: center;
-    */
+    align-content: center;
     height: 150px;
     width: 80px;
     border-radius: 50px;
@@ -189,6 +188,9 @@ html {
 }
 
 .Semente {
+    /*position: absolute;
+    left: 10%;
+    right: 10%; */
     height: 15px;
     width: 30px;
     border-radius: 10px;
