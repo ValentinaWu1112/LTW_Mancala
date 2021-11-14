@@ -9,7 +9,6 @@ html {
     display: flex;
     justify-content: space-between;
     background-color: rgb(83, 83, 83);
-    color: black;
     padding: 10px;
 }
 
@@ -119,7 +118,7 @@ html {
     flex-flow: row wrap;
     margin: 10px;
     height: 400px;
-    width: 800px;
+    width: 840px;
     background-color: rgb(83, 83, 83);
     border-radius: 25px;
     position: relative;
@@ -127,7 +126,7 @@ html {
     left: 20%;
 }
 
-.Armazens {
+.OponentArmazem {
     /*display: inline-block*/
     /*display: inline-flex;
     flex-basis: auto;*/
@@ -137,28 +136,61 @@ html {
     height: 350px;
     width: 80px;
     border-radius: 50px;
-    background-color: brown;
+    background-color: #9a7b4f;
     /*z-index: -1;*/
 }
 
-.Cavidades {
+.OponentRow {
+    position: relative;
+    left: 0px;
+    top: 20px;
+    width: 600px; /*80*6 + 5*5*/
+    height: 170px;
+}
+
+.PlayerRow {
+    position: relative;
+    left: 130px;
+    top: -190px;
+    width: 600px; /*80*6 + 5*10*/
+    height: 170px;
+}
+
+.PlayerArmazem {
+    position: relative;
+    left: 110px;
+    top: -400px;
+    margin: 25px;
+    height: 350px;
+    width: 80px;
+    border-radius: 50px;
+    background-color: #9a7b4f;
+    z-index: 10;
+}
+
+.Cavidade {
     margin: 5px;
+    display: inline-block;
     /*display: inline-flex;*/
+    /*
     align-content: center;
     align-items: center;
+    */
     height: 150px;
     width: 80px;
     border-radius: 50px;
-    background-color: pink;
+    background-color: #2a1e0f;
     /*z-index: -1;*/
-    /*position: relative;
+    /*
+    position: relative;
     left: 0px;
-    top: 30px;*/
+    top: 30px;
+    */
 }
 
-.Sementes {
+.Semente {
     height: 15px;
-    width: 15px;
+    width: 30px;
     border-radius: 10px;
     background-color: gold;
 }
