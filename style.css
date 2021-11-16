@@ -112,18 +112,20 @@ html {
 }
 
 .Tabuleiro {
-    /*display: inline-block;*/
     display: inline-flex;
     flex-wrap: wrap;
     flex-flow: row wrap;
-    margin: 10px;
     height: 400px;
     width: 840px;
     background-color: rgb(83, 83, 83);
     border-radius: 25px;
-    position: relative;
-    top: 20%;
-    left: 20%;
+    
+    /* IDK how but this centers any div*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .OponentArmazem {
@@ -136,7 +138,7 @@ html {
     height: 350px;
     width: 80px;
     border-radius: 50px;
-    background-color: #9a7b4f;
+    background: linear-gradient(45deg, #2a1e0f 10%, #c78e47 70%, #2a1e0f 100%) ;
     /*z-index: -1;*/
 }
 
@@ -164,8 +166,7 @@ html {
     height: 350px;
     width: 80px;
     border-radius: 50px;
-    background-color: #9a7b4f;
-    z-index: 10;
+    background: linear-gradient(45deg, #2a1e0f 10%, #c78e47 70%, #2a1e0f 100%);
 }
 
 .Cavidade {
@@ -180,6 +181,7 @@ html {
     width: 80px;
     border-radius: 50px;
     background-color: #2a1e0f;
+    background: linear-gradient(45deg, #2a1e0f 20%, #c78e47 70%, #2a1e0f 100%);
     /*z-index: -1;*/
     /*
     position: relative;
@@ -192,5 +194,15 @@ html {
     height: 15px;
     width: 30px;
     border-radius: 10px;
-    background-color: gold;
+    background: linear-gradient(45deg, gold 40%, white 80%, gold 100%);
 }
+
+/*
+NEED TO TRY SMTH WITH THIS
+background: radial-gradient(ellipse at top, #e66465, transparent),
+            radial-gradient(ellipse at bottom, #4d9f0c, transparent);
+*/
+
+/*
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+*/
