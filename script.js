@@ -10,26 +10,26 @@
 |___||___||___||___||___||___||___||___|
 */
 
-class Cavidade{
-    constructor(numSeme){
+class Cavidade {
+    constructor(numSeme) {
         this.sementes = numSeme;
     }
 
-    AddSemente(){
+    AddSemente() {
         this.sementes++;
     }
 }
 
-class Armazem extends Cavidade{
-    constructor(){
+class Armazem extends Cavidade {
+    constructor() {
         super(0);
     }
 }
 
-class Lado{
-    constructor(numCavi, numSeme){
+class Lado {
+    constructor(numCavi, numSeme) {
         this.cavidades = [];
-        for(let i = 0; i < numCavi; i++){
+        for (let i = 0; i < numCavi; i++) {
             this.cavidades.push(new Cavidade(numSeme));
         }
         this.armazem = new Armazem();
@@ -37,47 +37,47 @@ class Lado{
 }
 
 class Mancala {
-    constructor(cavi = 6, seme = 4){
+    constructor(cavi = 6, seme = 4) {
         this.numCavi = cavi;
         this.playerSide = new Lado(this.numCavi, seme);
         this.oponentSide = new Lado(this.numCavi, seme);
     }
-    getplayerSide(){
+    getplayerSide() {
         return this.playerSide;
     }
 
-    Semear(cavidade){
-        if(cavidade == this.numCavi || cavidade == this.numCavi * 2 + 1) {
+    Semear(cavidade) {
+        if (cavidade == this.numCavi || cavidade == this.numCavi * 2 + 1) {
             alert("Error, não se pode Semear Armazens");
         }
-        if(cavidade > this.numCavi){
+        if (cavidade > this.numCavi) {
             //oponent move
-            for(let i = 0; i < this.numCavi + 1; i++){
+            for (let i = 0; i < this.numCavi + 1; i++) {
 
             }
         }
-        if (cavidade < this.numCavi){
+        if (cavidade < this.numCavi) {
             //player move
             let quantidadeSementes = this.playerSide.cavidades[cavidade].sementes;
             let ondeSemear = cavidade + 1;
 
-            while(quantidadeSementes > 0){
+            while (quantidadeSementes > 0) {
                 alert("Entrou 65 " + ondeSemear + ": " + quantidadeSementes);
-                if(ondeSemear == this.numCavi){ //Player's Armazem
+                if (ondeSemear == this.numCavi) { //Player's Armazem
                     this.playerSide.Armazem.AddSemente();
                 }
-                if(ondeSemear == this.numCavi * 2 + 1){ //Opponent's Armazem
+                if (ondeSemear == this.numCavi * 2 + 1) { //Opponent's Armazem
                     this.oponentSide.Armazem.AddSemente();
                 }
-                if(ondeSemear > this.numCavi){ //Opponent Side
+                if (ondeSemear > this.numCavi) { //Opponent Side
                     this.oponentSide.cavidades[12 - cavidade].AddSemente();
                 }
-                if(ondeSemear < this.numCavi){//Player Side
+                if (ondeSemear < this.numCavi) { //Player Side
                     this.oponentSide.cavidades[cavidade].AddSemente();
                 }
-                
+
                 ondeSemear++;
-                if(ondeSemear > this.numCavi * 2 + 1){ //Opponent's Armazem
+                if (ondeSemear > this.numCavi * 2 + 1) { //Opponent's Armazem
                     ondeSemear = 0;
                 }
                 quantidadeSementes--;
@@ -88,14 +88,34 @@ class Mancala {
 
 //INUTIL
 function Find(cavidade, manc) {
-    for(let i = 0; i < manc.playerSide.size(); i++){
-        if(cavidade == manc.playerSide[i]) return i;
+    for (let i = 0; i < manc.playerSide.size(); i++) {
+        if (cavidade == manc.playerSide[i]) return i;
     }
-    for(let i = 0; i < manc.oponentSide.size(); i++){
-        if(cavidade == manc.oponentSide[i]) return i + manc.playerSide[i].numCavi;
+    for (let i = 0; i < manc.oponentSide.size(); i++) {
+        if (cavidade == manc.oponentSide[i]) return i + manc.playerSide[i].numCavi;
     }
     return -1;
 }
+
+/*
+function instructions() {
+    var x = document.getElementById("Instruções")
+    if (x.style.display === "none") {
+        x.style.display = "block"
+    } else {
+        x.style.display = "none"
+    }
+}
+*/
+
+function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if (e.style.display === "block")
+        e.style.display = "none";
+    else
+        e.style.display = "block";
+}
+
 
 jogo = new Mancala();
 jogo.playerSide.cavidades[0].sementes = 2;

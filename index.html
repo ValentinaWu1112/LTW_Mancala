@@ -1,3 +1,4 @@
+<!--<!DOCTYPE html>-->
 <html>
 <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
 <!--LOGO FONT-->
@@ -7,29 +8,51 @@
     <div class="Logotipo">
         MANCALA
     </div>
-    <button class="BotaoInstrucoes" type="button" onclick="myFunction()">
+    <button class="BotaoInstrucoes" type="button" onclick="toggle_visibility('instrucoes');">
             Instruções
         </button>
-    <button class="BotaoConfiguracoes" type="button" onclick="FUNCAO_AQUI()">
+    <button class="BotaoConfiguracoes" type="button" onclick="toggle_visibility('configuracoes');">
             Configurações
         </button>
-    <button class="BotaoClassificacoes" type="button" onclick="FUNCAO_AQUI()">
+    <button class="BotaoClassificacoes" type="button" onclick="toggle_visibility('classificacoes');">
             Classificações
         </button>
-    <button class="BotaoLogin" type="button" onclick="FUNCAO_AQUI()">
+    <button class="BotaoLogin" type="button" onclick="toggle_visibility('login');">
             LOGIN
         </button>
 </div>
-<div class="Instrucoes">
+<div class="Instrucoes" , id="instrucoes">
     Escrever instruções aqui ig
 </div>
-<div class="Configuracoes">
-    Configurações aqui
+<div class="Configuracoes" , id="configuracoes">
+
+    <label for="cavidades">Choose the number of holes per player:</label>
+    <select id="numCavidades" name="cavidades" size="1">
+        <option value=4>4</option>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+    </select>
+    <input type="submit" value="Submit">
+    <br><br>
+
+    <label for="sementes">Choose the initial number of seeds per hole:</label>
+    <select id="numSementes" name="seeds" size="1">
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+    </select>
+    <input type="submit" value="Submit">
+    <br><br>
+
+    <label for="jogadores">Choose the number of players:</label> 1
+    <input type="range" id="numJogadores" name="Players" min="1" max="2"> 2
 </div>
-<div class="Classificacoes">
+<div class="Classificacoes" , id="classificacoes">
     Classificações aqui
 </div>
-<div class="Login">
+<div class="Login" , id="login">
     LOGIN aqui
 </div>
 

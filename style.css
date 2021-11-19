@@ -35,6 +35,9 @@ html {
     top: -10px;
 }
 
+
+
+
 .BotaoConfiguracoes {
     position: relative;
     left: 200px;
@@ -119,7 +122,6 @@ html {
     width: 840px;
     background-color: rgb(83, 83, 83);
     border-radius: 25px;
-    
     /* IDK how but this centers any div*/
     position: absolute;
     top: 50%;
@@ -138,7 +140,7 @@ html {
     height: 350px;
     width: 80px;
     border-radius: 50px;
-    background: linear-gradient(45deg, #2a1e0f 10%, #c78e47 70%, #2a1e0f 100%) ;
+    background: linear-gradient(45deg, #2a1e0f 10%, #c78e47 70%, #2a1e0f 100%);
     /*z-index: -1;*/
 }
 
@@ -199,11 +201,13 @@ html {
     background: linear-gradient(45deg, gold 40%, white 80%, gold 100%);
 }
 
+
 /*
 NEED TO TRY SMTH WITH THIS
 background: radial-gradient(ellipse at top, #e66465, transparent),
             radial-gradient(ellipse at bottom, #4d9f0c, transparent);
 */
+
 
 /*
 https://css-tricks.com/snippets/css/a-guide-to-flexbox/
