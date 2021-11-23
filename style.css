@@ -192,14 +192,10 @@ html {
 }
 
 .Semente {
-    /*position: absolute;
-    left: 10%;
-    right: 10%; */
     position: relative;
     height: 15px;
     width: 30px;
     border-radius: 10px;
-    background: linear-gradient(45deg, gold 40%, white 80%, gold 100%);
 }
 
 

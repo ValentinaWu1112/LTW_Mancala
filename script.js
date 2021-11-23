@@ -27,6 +27,11 @@ function CreateSemente(cav, num){
     let vertPos = Math.random() * 10 + numSementes - 4 * num; //Porquê 4 * index perguntas? idk mas fica bem
     seme.style.top = vertPos + "px";
 
+    //random color
+    let colors = [Math.random() * 255, Math.random() * 255, Math.random() * 255];
+    let colorstr = "rgb(" + colors[0] + ", " + colors[1] + ", " + colors[2] + ")";
+    seme.style.background = "linear-gradient(45deg, " + colorstr + " 40%, white 80%, " + colorstr + " 100%)";
+
     cav.appendChild(seme);
 }
 
@@ -201,9 +206,6 @@ var numSementes = document.getElementById("numSementes").value;
 
 jogo = new Mancala(numCavidades, numSementes);
 jogo.CreateGameHTML();
-numSementes = 8;
-numCavidades = 8;
-jogo.UpdateGameInitialHTML();
 
 
 /*
