@@ -201,6 +201,12 @@ function toggle_visibility(id) {
     if(lastZ > 64) lastZ = 0;
 }
 
+function submit_changes(){
+    numCavidades = document.getElementById("numCavidades").value;
+    numSementes = document.getElementById("numSementes").value;
+    jogo.UpdateGameInitialHTML();
+}
+
 var numCavidades = document.getElementById("numCavidades").value;
 var numSementes = document.getElementById("numSementes").value;
 

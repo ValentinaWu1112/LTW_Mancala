@@ -181,14 +181,7 @@ html {
     height: 150px;
     width: 80px;
     border-radius: 50px;
-    background-color: #2a1e0f;
     background: linear-gradient(45deg, #2a1e0f 20%, #c78e47 70%, #2a1e0f 100%);
-    /*z-index: -1;*/
-    /*
-    position: relative;
-    left: 0px;
-    top: 30px;
-    */
 }
 
 .Semente {
