@@ -195,6 +195,7 @@ html {
     /*position: absolute;
     left: 10%;
     right: 10%; */
+    position: relative;
     height: 15px;
     width: 30px;
     border-radius: 10px;

@@ -10,6 +10,26 @@
 |___||___||___||___||___||___||___||___|
 */
 
+function CreateSemente(cav, num){
+    //create semente
+    let seme = document.createElement("div");
+    seme.classList.add("Semente");
+
+    //random rotation
+    let ang = Math.random() * 360;
+    seme.style.transform = "rotate("+ ang + "deg)";
+
+    //random horizontal position
+    let horiPos = Math.random() * 25 - 12.5; 
+    seme.style.left = horiPos + "px";
+
+    //random vertical position
+    let vertPos = Math.random() * 10 + numSementes - 4 * num; //Porquê 4 * index perguntas? idk mas fica bem
+    seme.style.top = vertPos + "px";
+
+    cav.appendChild(seme);
+}
+
 class Cavidade {
     constructor(numSeme) {
         this.sementes = numSeme;
@@ -94,12 +114,7 @@ class Mancala {
             cav.classList.add("Cavidade");
 
             for(let s = 0; s < this.numSeme; s++){
-                //create semente
-                let seme = document.createElement("div");
-                seme.classList.add("Semente");
-                let ang = Math.random() * 360;
-                seme.style.transform = "rotate("+ ang + "deg)";
-                cav.appendChild(seme);
+                CreateSemente(cav, s);
             }
             document.getElementsByClassName("OponentRow")[0].appendChild(cav);
         }
@@ -110,18 +125,13 @@ class Mancala {
             cav.classList.add("Cavidade");
 
             for(let s = 0; s < this.numSeme; s++){
-                //create semente
-                let seme = document.createElement("div");
-                seme.classList.add("Semente");
-                let ang = Math.random() * 360;
-                seme.style.transform = "rotate("+ ang + "deg)";
-                cav.appendChild(seme);
+                CreateSemente(cav, s);
             }
             document.getElementsByClassName("PlayerRow")[0].appendChild(cav);
         }
     }
 
-    UpdateGameHTML(){
+    UpdateGameInitialHTML(){
         //clearing the previous board
         let opRow = document.getElementsByClassName("OponentRow")[0];
         while(opRow.firstChild){
@@ -140,12 +150,7 @@ class Mancala {
             cav.classList.add("Cavidade");
 
             for(let s = 0; s < this.numSeme; s++){
-                //create semente
-                let seme = document.createElement("div");
-                seme.classList.add("Semente");
-                let ang = Math.random() * 360;
-                seme.style.transform = "rotate("+ ang + "deg)";
-                cav.appendChild(seme);
+                CreateSemente(cav, s);
             }
             document.getElementsByClassName("OponentRow")[0].appendChild(cav);
         }
@@ -156,17 +161,13 @@ class Mancala {
             cav.classList.add("Cavidade");
 
             for(let s = 0; s < this.numSeme; s++){
-                //create semente
-                let seme = document.createElement("div");
-                seme.classList.add("Semente");
-                let ang = Math.random() * 360;
-                seme.style.transform = "rotate("+ ang + "deg)";
-                cav.appendChild(seme);
+                CreateSemente(cav, s);
             }
             document.getElementsByClassName("PlayerRow")[0].appendChild(cav);
         }
     }
 }
+
 
 /*
 function instructions() {
@@ -200,6 +201,9 @@ var numSementes = document.getElementById("numSementes").value;
 
 jogo = new Mancala(numCavidades, numSementes);
 jogo.CreateGameHTML();
+numSementes = 8;
+numCavidades = 8;
+jogo.UpdateGameInitialHTML();
 
 
 /*
