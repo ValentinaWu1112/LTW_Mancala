@@ -97,6 +97,8 @@ class Mancala {
                 //create semente
                 let seme = document.createElement("div");
                 seme.classList.add("Semente");
+                let ang = Math.random() * 360;
+                seme.style.transform = "rotate("+ ang + "deg)";
                 cav.appendChild(seme);
             }
             document.getElementsByClassName("OponentRow")[0].appendChild(cav);
@@ -111,6 +113,8 @@ class Mancala {
                 //create semente
                 let seme = document.createElement("div");
                 seme.classList.add("Semente");
+                let ang = Math.random() * 360;
+                seme.style.transform = "rotate("+ ang + "deg)";
                 cav.appendChild(seme);
             }
             document.getElementsByClassName("PlayerRow")[0].appendChild(cav);
@@ -139,6 +143,8 @@ class Mancala {
                 //create semente
                 let seme = document.createElement("div");
                 seme.classList.add("Semente");
+                let ang = Math.random() * 360;
+                seme.style.transform = "rotate("+ ang + "deg)";
                 cav.appendChild(seme);
             }
             document.getElementsByClassName("OponentRow")[0].appendChild(cav);
@@ -153,6 +159,8 @@ class Mancala {
                 //create semente
                 let seme = document.createElement("div");
                 seme.classList.add("Semente");
+                let ang = Math.random() * 360;
+                seme.style.transform = "rotate("+ ang + "deg)";
                 cav.appendChild(seme);
             }
             document.getElementsByClassName("PlayerRow")[0].appendChild(cav);
