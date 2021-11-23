@@ -115,11 +115,10 @@ html {
 }
 
 .Tabuleiro {
-    display: inline-flex;
-    flex-wrap: wrap;
-    flex-flow: row wrap;
+    display: flex;
+    flex-direction: row;
     height: 400px;
-    width: 840px;
+    width: auto;
     background-color: rgb(83, 83, 83);
     border-radius: 25px;
     /* IDK how but this centers any div*/
@@ -130,42 +129,42 @@ html {
     transform: translate(-50%, -50%);
 }
 
+.CavidadesWraper{
+    display: flex;
+    flex-direction: column;
+}
+
 .OponentArmazem {
-    /*display: inline-block*/
-    /*display: inline-flex;
-    flex-basis: auto;*/
-    /*flex-wrap: wrap;*/
-    flex-flow: row wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
     margin: 25px;
     height: 350px;
     width: 80px;
     border-radius: 50px;
     background: linear-gradient(45deg, #2a1e0f 10%, #c78e47 70%, #2a1e0f 100%);
-    /*z-index: -1;*/
 }
 
 .OponentRow {
+    display: flex;
+    flex-direction: row;
     position: relative;
-    left: 0px;
-    top: 20px;
-    width: 600px;
-    /*80*6 + 5*5*/
-    height: 170px;
+    top: 25px;
 }
 
 .PlayerRow {
+    display: flex;
+    flex-direction: row;
     position: relative;
-    left: 130px;
-    top: -190px;
-    width: 600px;
-    /*80*6 + 5*10*/
-    height: 170px;
+    top: 60px;
 }
 
 .PlayerArmazem {
-    position: relative;
-    left: 110px;
-    top: -400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
     margin: 25px;
     height: 350px;
     width: 80px;
@@ -175,9 +174,10 @@ html {
 
 .Cavidade {
     margin: 5px;
-    display: inline-flex;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    align-content: center;
+    justify-content: space-evenly;
     height: 150px;
     width: 80px;
     border-radius: 50px;

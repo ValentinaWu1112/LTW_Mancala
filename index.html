@@ -3,7 +3,7 @@
 <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
 <!--LOGO FONT-->
 <link rel="stylesheet" href="style.css" type="text/css">
-<script src="script.js"></script>
+<script type="text/javascript" src="script.js" defer></script>
 <div class="BarraTopo">
     <div class="Logotipo">
         MANCALA
@@ -30,14 +30,17 @@
     <select id="numCavidades" name="cavidades" size="1">
         <option value=4>4</option>
         <option value=5>5</option>
-        <option value=6>6</option>
+        <option selected="selected" value=6>6</option>
         <option value=7>7</option>
+        <option value=8>8</option>
     </select>
     <input type="submit" value="Submit">
     <br><br>
 
     <label for="sementes">Choose the initial number of seeds per hole:</label>
     <select id="numSementes" name="seeds" size="1">
+        <option value=3>3</option>
+        <option selected="selected" value=4>4</option>
         <option value=5>5</option>
         <option value=6>6</option>
         <option value=7>7</option>
@@ -60,80 +63,87 @@
     <div class="OponentArmazem">
 
     </div>
-    <div class="OponentRow">
-        <div class="Cavidade">
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
+    <div class="CavidadesWraper"> <!--USED FOR DISPLAY WITH FLEX-->
+
+        <div class="OponentRow">
+            <!--
+            <div class="Cavidade">
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+            </div>
+            <div class="Cavidade">
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+            </div>
+            <div class="Cavidade">
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+            </div>
+            <div class="Cavidade">
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+            </div>
+            <div class="Cavidade">
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+            </div>
+            <div class="Cavidade">
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+            </div>
+            -->
         </div>
-        <div class="Cavidade">
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-        </div>
-        <div class="Cavidade">
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-        </div>
-        <div class="Cavidade">
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-        </div>
-        <div class="Cavidade">
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-        </div>
-        <div class="Cavidade">
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-        </div>
-    </div>
-    <div class="PlayerRow">
-        <div class="Cavidade">
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-        </div>
-        <div class="Cavidade">
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-        </div>
-        <div class="Cavidade">
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-        </div>
-        <div class="Cavidade">
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-        </div>
-        <div class="Cavidade">
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-        </div>
-        <div class="Cavidade">
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
-            <div class="Semente"></div>
+        <div class="PlayerRow">
+            <!--
+            <div class="Cavidade">
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+            </div>
+            <div class="Cavidade">
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+            </div>
+            <div class="Cavidade">
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+            </div>
+            <div class="Cavidade">
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+            </div>
+            <div class="Cavidade">
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+            </div>
+            <div class="Cavidade">
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+                <div class="Semente"></div>
+            </div>
+            -->
         </div>
     </div>
     <div class="PlayerArmazem">
