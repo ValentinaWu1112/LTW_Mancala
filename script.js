@@ -1,4 +1,3 @@
-//alert("hello world!");
 /*
  ___  ___  ___  ___  ___  ___  ___  ___
 |   ||   ||   ||   ||   ||   ||   ||   |
@@ -24,7 +23,7 @@ function CreateSemente(cav, num){
     seme.style.left = horiPos + "px";
 
     //random vertical position
-    let vertPos = Math.random() * 10 + numSementes - 4 * num; //Porquê 4 * index perguntas? idk mas fica bem
+    let vertPos = Math.random() * 10 + 1.25 * num_sementes - 4 * num; //Porquê 4 * index perguntas? idk mas fica bem
     seme.style.top = vertPos + "px";
 
     //random color
@@ -147,8 +146,8 @@ class Mancala {
             plRow.removeChild(plRow.firstChild);
         }
 
-        this.numSeme = numSementes;
-        this.numCavi = numCavidades;
+        this.numSeme = num_sementes;
+        this.numCavi = num_cavidades;
         //oponent side
         for(let c = 0; c < this.numCavi; c++){
             let cav = document.createElement("div");
@@ -173,18 +172,6 @@ class Mancala {
     }
 }
 
-
-/*
-function instructions() {
-    var x = document.getElementById("Instruções")
-    if (x.style.display === "none") {
-        x.style.display = "block"
-    } else {
-        x.style.display = "none"
-    }
-}
-*/
-
 let lastZ = 0;
 function toggle_visibility(id) {
     var e = document.getElementById(id);
@@ -202,29 +189,15 @@ function toggle_visibility(id) {
 }
 
 function submit_changes(){
-    numCavidades = document.getElementById("numCavidades").value;
-    numSementes = document.getElementById("numSementes").value;
+    num_cavidades = document.getElementById("numCavidades").value;
+    num_sementes = document.getElementById("numSementes").value;
+
     jogo.UpdateGameInitialHTML();
 }
 
-var numCavidades = document.getElementById("numCavidades").value;
-var numSementes = document.getElementById("numSementes").value;
+var num_cavidades = document.getElementById("numCavidades").value;
+var num_sementes = document.getElementById("numSementes").value;
+var num_jogadores = document.getElementById("numJogadores").value;
 
-jogo = new Mancala(numCavidades, numSementes);
+jogo = new Mancala(num_cavidades, num_sementes);
 jogo.CreateGameHTML();
-
-
-/*
-numSementes = 5;
-jogo.UpdateGameHTML();
-numCavidades = 10;
-jogo.UpdateGameHTML();
-*/
-
-
-/*
-let seme = document.createElement("div");
-seme.classList.add("Semente");
-document.getElementsByClassName("OponentArmazem")[0].appendChild(seme);
-document.getElementsByClassName("PlayerArmazem")[0].appendChild(seme);
-*/
