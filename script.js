@@ -92,7 +92,6 @@ class Mancala {
         this.numSeme = seme
         this.playerSide = new Lado(this.numCavi, this.numSeme);
         this.oponentSide = new Lado(this.numCavi, this.numSeme);
-        this.CreateGameHTML();
     }
 
     Semear(cavidade) {
@@ -159,26 +158,29 @@ class Mancala {
     }
 
     CreateGameHTML(){
-        //oponent side
-        for(let c = 0; c < this.numCavi; c++){
-            let cav = document.createElement("div");
-            cav.classList.add("Cavidade");
-
-            for(let s = 0; s < this.numSeme; s++){
-                CreateSementeHTML(cav, s, this.oponentSide.cavidades[c].sementes[s]);
-            }
-            document.getElementsByClassName("OponentRow")[0].appendChild(cav);
-        }
-
         //player side
         for(let c = 0; c < this.numCavi; c++){
             let cav = document.createElement("div");
             cav.classList.add("Cavidade");
+            cav.addEventListener('click', function(){ClickCavidade(c)}, false);
 
             for(let s = 0; s < this.numSeme; s++){
                 CreateSementeHTML(cav, s, this.playerSide.cavidades[c].sementes[s]);
             }
             document.getElementsByClassName("PlayerRow")[0].appendChild(cav);
+        }
+
+        //oponent side
+        for(let c = 0; c < this.numCavi; c++){
+            let cav = document.createElement("div");
+            cav.classList.add("Cavidade");
+            let temp = +this.numCavi + +c; //Guess what this is for *facepalms in js*
+            cav.addEventListener('click', function(){ClickCavidade(temp)}, false);
+
+            for(let s = 0; s < this.numSeme; s++){
+                CreateSementeHTML(cav, s, this.oponentSide.cavidades[c].sementes[s]);
+            }
+            document.getElementsByClassName("OponentRow")[0].appendChild(cav);
         }
     }
 
@@ -304,9 +306,41 @@ function submit_changes(){
     jogo.UpdateGameInitialHTML();
 }
 
+function ClickCavidade(cav){
+    console.log(cav);
+    console.log(whos_to_play);
+    console.log((+cav >= (+num_cavidades + 1)));
+    if(whos_to_play == 1 && cav >= 0 && cav < num_cavidades){
+        jogo.Semear(cav);
+        jogo.UpdateGameMiddleHTML();
+        if(num_jogadores == 1){
+            //TO IMPLEMENT
+            alert("NO AI IMPLEMENT YET PLEASE RETURN TO 2 PLAYER FORMAT");
+        }
+        else whos_to_play = 2;
+    }
+    else if(whos_to_play == 2 && ((+cav >= +num_cavidades + 1) && (+cav < 2 * +num_cavidades))){
+        jogo.Semear(cav);
+        jogo.UpdateGameMiddleHTML();
+        if(num_jogadores == 1){
+            //TO IMPLEMENT
+            alert("NO AI IMPLEMENT YET PLEASE RETURN TO 2 PLAYER FORMAT");
+        }
+        else whos_to_play = 1;
+    }
+    else{
+        alert("That's not a valid play, try again please");
+    }
+}
+
 var num_cavidades = document.getElementById("numCavidades").value;
 var num_sementes = document.getElementById("numSementes").value;
 var num_jogadores = document.getElementById("numJogadores").value;
+/**
+ * 1 -> Player's turn \
+ * 2 -> Oponent's turn
+ */
+var whos_to_play = 1;
 
 jogo = new Mancala(num_cavidades, num_sementes);
-
+jogo.CreateGameHTML();
