@@ -9,7 +9,7 @@
 |___||___||___||___||___||___||___||___|
 */
 
-function CreateSemente(cav, num){
+function CreateSementeHTML(cav, num, seed){
     //create semente
     let seme = document.createElement("div");
     seme.classList.add("Semente");
@@ -27,30 +27,52 @@ function CreateSemente(cav, num){
     seme.style.top = vertPos + "px";
 
     //random color
-    let colors = [Math.random() * 255, Math.random() * 255, Math.random() * 255];
-    let colorstr = "rgb(" + colors[0] + ", " + colors[1] + ", " + colors[2] + ")";
-    seme.style.background = "linear-gradient(45deg, " + colorstr + " 40%, white 80%, " + colorstr + " 100%)";
+    //let colo = [Math.random() * 255, Math.random() * 255, Math.random() * 255];
+    //let colorstr = "rgb(" + colo[0] + ", " + colo[1] + ", " + colo[2] + ")";
+    seme.style.background = "linear-gradient(45deg, " + seed.getStr() + " 40%, white 80%, " + seed.getStr() + " 100%)";
 
     cav.appendChild(seme);
 }
 
-class Cavidade {
-    constructor(numSeme) {
-        this.sementes = numSeme;
+class Semente {
+    constructor(colo){
+        this.colors = colo;
     }
 
-    AddSemente() {
-        this.sementes++;
+    getStr(){
+        return "rgb(" + this.colors[0] + ", " + this.colors[1] + ", " + this.colors[2] + ")";
+    }
+}
+
+class Cavidade {
+    constructor(numSeme) {
+        this.sementes = []
+        for(let i = 0; i < numSeme; i++){
+            this.sementes.push(new Semente([Math.random() * 255, Math.random() * 255, Math.random() * 255]));
+        }
+    }
+
+    get sements() {
+        return this.sementes;
+    }
+
+    AddSemente(seed) {
+        this.sementes.push(seed);
+    }
+
+    RemoveSemente(seed) {
+        for(let i = 0; i < this.sementes.length; i++){
+            if(seed.getStr === this.sementes[i].getStr){
+                this.sementes.splice(i, 1);
+                break;
+            }
+        }
     }
 }
 
 class Armazem extends Cavidade {
     constructor() {
         super(0);
-    }
-
-    AddSemente() {
-        this.sementes++;
     }
 }
 
@@ -70,36 +92,61 @@ class Mancala {
         this.numSeme = seme
         this.playerSide = new Lado(this.numCavi, this.numSeme);
         this.oponentSide = new Lado(this.numCavi, this.numSeme);
+        this.CreateGameHTML();
     }
 
     Semear(cavidade) {
+        //shouldn't even be used
         if (cavidade == this.numCavi || cavidade == this.numCavi * 2 + 1) {
             alert("Error, não se pode Semear Armazens");
         }
-        if (cavidade > this.numCavi) {
+        else if (cavidade > this.numCavi) {
             //oponent move
-            for (let i = 0; i < this.numCavi + 1; i++) {
-
-            }
-        }
-        if (cavidade < this.numCavi) {
-            //player move
-            let quantidadeSementes = this.playerSide.cavidades[cavidade].sementes;
-            this.playerSide.cavidades[cavidade].sementes = 0;
+            let seedsToSow = this.oponentSide.cavidades[12 - cavidade].sements;
+            let quantidadeSementes = seedsToSow.length;
+            this.oponentSide.cavidades[12 - cavidade].sementes = [];
             let ondeSemear = cavidade + 1;
 
             while (quantidadeSementes > 0) {
                 if (ondeSemear == this.numCavi) { //Player's Armazem
-                    this.playerSide.armazem.AddSemente();
+                    this.playerSide.armazem.AddSemente(seedsToSow.pop());
                 }
                 if (ondeSemear == this.numCavi * 2 + 1) { //Opponent's Armazem
-                    this.oponentSide.armazem.AddSemente();
+                    this.oponentSide.armazem.AddSemente(seedsToSow.pop());
                 }
                 if (ondeSemear > this.numCavi) { //Opponent Side
-                    this.oponentSide.cavidades[12 - ondeSemear].AddSemente();
+                    this.oponentSide.cavidades[12 - ondeSemear].AddSemente(seedsToSow.pop());
                 }
                 if (ondeSemear < this.numCavi) { //Player Side
-                    this.playerSide.cavidades[ondeSemear].AddSemente();
+                    this.playerSide.cavidades[ondeSemear].AddSemente(seedsToSow.pop());
+                }
+
+                ondeSemear++;
+                if (ondeSemear > this.numCavi * 2 + 1) { //Opponent's Armazem
+                    ondeSemear = 0;
+                }
+                quantidadeSementes--;
+            }
+        }
+        else if (cavidade < this.numCavi) {
+            //player move
+            let seedsToSow = this.playerSide.cavidades[cavidade].sements;
+            let quantidadeSementes = seedsToSow.length;
+            this.playerSide.cavidades[cavidade].sementes = [];
+            let ondeSemear = cavidade + 1;
+
+            while (quantidadeSementes > 0) {
+                if (ondeSemear == this.numCavi) { //Player's Armazem
+                    this.playerSide.armazem.AddSemente(seedsToSow.pop());
+                }
+                if (ondeSemear == this.numCavi * 2 + 1) { //Opponent's Armazem
+                    this.oponentSide.armazem.AddSemente(seedsToSow.pop());
+                }
+                if (ondeSemear > this.numCavi) { //Opponent Side
+                    this.oponentSide.cavidades[12 - ondeSemear].AddSemente(seedsToSow.pop());
+                }
+                if (ondeSemear < this.numCavi) { //Player Side
+                    this.playerSide.cavidades[ondeSemear].AddSemente(seedsToSow.pop());
                 }
 
                 ondeSemear++;
@@ -118,7 +165,7 @@ class Mancala {
             cav.classList.add("Cavidade");
 
             for(let s = 0; s < this.numSeme; s++){
-                CreateSemente(cav, s);
+                CreateSementeHTML(cav, s, this.oponentSide.cavidades[c].sementes[s]);
             }
             document.getElementsByClassName("OponentRow")[0].appendChild(cav);
         }
@@ -129,13 +176,13 @@ class Mancala {
             cav.classList.add("Cavidade");
 
             for(let s = 0; s < this.numSeme; s++){
-                CreateSemente(cav, s);
+                CreateSementeHTML(cav, s, this.playerSide.cavidades[c].sementes[s]);
             }
             document.getElementsByClassName("PlayerRow")[0].appendChild(cav);
         }
     }
 
-    UpdateGameInitialHTML(){
+    ClearGameHTML(){
         //clearing the previous board
         let opRow = document.getElementsByClassName("OponentRow")[0];
         while(opRow.firstChild){
@@ -145,29 +192,60 @@ class Mancala {
         while(plRow.firstChild){
             plRow.removeChild(plRow.firstChild);
         }
+    }
+
+    UpdateGameInitialHTML(){
+        this.ClearGameHTML();
 
         this.numSeme = num_sementes;
         this.numCavi = num_cavidades;
+        this.playerSide = new Lado(this.numCavi, this.numSeme);
+        this.oponentSide = new Lado(this.numCavi, this.numSeme);
+        
+        this.CreateGameHTML();
+    }
+
+    UpdateGameMiddleHTML(){
         //oponent side
         for(let c = 0; c < this.numCavi; c++){
-            let cav = document.createElement("div");
-            cav.classList.add("Cavidade");
-
-            for(let s = 0; s < this.numSeme; s++){
-                CreateSemente(cav, s);
+            let seedsHTML = document.getElementById("oponent_row").children[c].children;
+            let numseedsJS = this.oponentSide.cavidades[c].sements.length;
+            if(seedsHTML.length == numseedsJS){
+                //same size do nothing
+                continue;
             }
-            document.getElementsByClassName("OponentRow")[0].appendChild(cav);
+            let cavHTML = document.getElementById("oponent_row").children[c];
+            //removing all
+            while(cavHTML.firstChild){
+                cavHTML.removeChild(cavHTML.firstChild);
+            }
+            if(numseedsJS == 0) continue;
+            //Adding the ones that should be there
+            for(let s = 0; s < numseedsJS; s++){
+                CreateSementeHTML(cavHTML, s, this.oponentSide.cavidades[c].sementes[s]);
+            }
+            continue;
         }
 
         //player side
         for(let c = 0; c < this.numCavi; c++){
-            let cav = document.createElement("div");
-            cav.classList.add("Cavidade");
-
-            for(let s = 0; s < this.numSeme; s++){
-                CreateSemente(cav, s);
+            let seedsHTML = document.getElementById("player_row").children[c].children;
+            let numseedsJS = this.playerSide.cavidades[c].sements.length;
+            if(seedsHTML.length == numseedsJS){
+                //same size do nothing
+                continue;
             }
-            document.getElementsByClassName("PlayerRow")[0].appendChild(cav);
+            let cavHTML = document.getElementById("player_row").children[c];
+            //removing all
+            while(cavHTML.firstChild){
+                cavHTML.removeChild(cavHTML.firstChild);
+            }
+            if(numseedsJS == 0) continue;
+            //Adding the ones that should be there
+            for(let s = 0; s < numseedsJS; s++){
+                CreateSementeHTML(cavHTML, s, this.playerSide.cavidades[c].sementes[s]);
+            }
+            continue;
         }
     }
 }
@@ -191,7 +269,7 @@ function toggle_visibility(id) {
 function submit_changes(){
     num_cavidades = document.getElementById("numCavidades").value;
     num_sementes = document.getElementById("numSementes").value;
-
+    num_jogadores = document.getElementById("numJogadores").value;
     jogo.UpdateGameInitialHTML();
 }
 
@@ -200,4 +278,12 @@ var num_sementes = document.getElementById("numSementes").value;
 var num_jogadores = document.getElementById("numJogadores").value;
 
 jogo = new Mancala(num_cavidades, num_sementes);
-jogo.CreateGameHTML();
+/*
+console.log(jogo.oponentSide.cavidades[12 - 7].sements[3].getStr());
+
+jogo.Semear(7);
+
+console.log(jogo.oponentSide.cavidades[12 - 7 - 1].sements[4].getStr());
+
+jogo.UpdateGameMiddleHTML();
+*/
