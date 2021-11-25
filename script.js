@@ -23,7 +23,8 @@ function CreateSementeHTML(cav, num, seed){
     seme.style.left = horiPos + "px";
 
     //random vertical position
-    let vertPos = Math.random() * 10 + 1.25 * num_sementes - 4 * num; //Porquê 4 * index perguntas? idk mas fica bem
+    //let vertPos = Math.random() * 10 + 1.25 * num_sementes - 4 * num; //Porquê 4 * index perguntas? idk mas fica bem
+    let vertPos = Math.random() * 10 - 5;
     seme.style.top = vertPos + "px";
 
     //random color
@@ -174,7 +175,7 @@ class Mancala {
         for(let c = 0; c < this.numCavi; c++){
             let cav = document.createElement("div");
             cav.classList.add("Cavidade");
-            let temp = +this.numCavi + +c; //Guess what this is for *facepalms in js*
+            let temp = +this.numCavi * 2 - +c; //Guess what this is for *facepalms in js*
             cav.addEventListener('click', function(){ClickCavidade(temp)}, false);
 
             for(let s = 0; s < this.numSeme; s++){
@@ -303,6 +304,7 @@ function submit_changes(){
     num_cavidades = document.getElementById("numCavidades").value;
     num_sementes = document.getElementById("numSementes").value;
     num_jogadores = document.getElementById("numJogadores").value;
+    whos_to_play = 1;
     jogo.UpdateGameInitialHTML();
 }
 
@@ -319,7 +321,7 @@ function ClickCavidade(cav){
         }
         else whos_to_play = 2;
     }
-    else if(whos_to_play == 2 && ((+cav >= +num_cavidades + 1) && (+cav < 2 * +num_cavidades))){
+    else if(whos_to_play == 2 && ((+cav >= +num_cavidades + 1) && (+cav <= 2 * +num_cavidades))){
         jogo.Semear(cav);
         jogo.UpdateGameMiddleHTML();
         if(num_jogadores == 1){
