@@ -319,9 +319,6 @@ function submit_changes(){
 }
 
 function ClickCavidade(cav){
-    console.log(cav);
-    console.log(whos_to_play);
-    console.log((+cav >= (+num_cavidades + 1)));
     if(whos_to_play == 1 && cav >= 0 && cav < num_cavidades){
         jogo.Semear(cav);
         jogo.UpdateGameMiddleHTML();
@@ -343,6 +340,28 @@ function ClickCavidade(cav){
     else{
         alert("That's not a valid play, try again please");
     }
+
+    ChangePointer();
+}
+
+function ChangePointer(){
+    if(whos_to_play == 1){
+        for(let c = 0; c < num_cavidades; c++){
+            document.getElementById("player_row").children[c].style.cursor = "pointer";
+        }
+        for(let c = 0; c < num_cavidades; c++){
+            document.getElementById("oponent_row").children[c].style.cursor = "not-allowed";
+        }
+    }
+    else if(whos_to_play == 2){
+        for(let c = 0; c < num_cavidades; c++){
+            document.getElementById("player_row").children[c].style.cursor = "not-allowed";
+        }
+        for(let c = 0; c < num_cavidades; c++){
+            document.getElementById("oponent_row").children[c].style.cursor = "pointer";
+        }
+    }
+    else alert("Error in Changepointer() -> whos_to_play");
 }
 
 var num_cavidades = document.getElementById("numCavidades").value;
@@ -356,3 +375,4 @@ var whos_to_play = 1;
 
 jogo = new Mancala(num_cavidades, num_sementes);
 jogo.CreateGameHTML();
+ChangePointer();
