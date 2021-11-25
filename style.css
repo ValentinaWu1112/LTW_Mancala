@@ -50,6 +50,10 @@ html {
 .Logotipo {
     font-family: 'Aclonica';
     font-size: 60;
+    cursor: pointer;
+    /*
+    When clicked return to "home" page -> later
+    */
 }
 
 .Instrucoes {
@@ -60,6 +64,7 @@ html {
     padding: 5px;
     width: 600px;
     height: auto;
+    border-radius: 10px;
     background-color: green;
     display: block;
 }
@@ -72,7 +77,9 @@ html {
     padding: 5px;
     width: 600px;
     height: auto;
-    background-color: red;
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+    background-color: rgba(50, 50, 50, 0.75);
     display: block;
 }
 
@@ -84,6 +91,7 @@ html {
     padding: 5px;
     width: 600px;
     height: auto;
+    border-radius: 10px;
     background-color: blueviolet;
     display: block;
 }
@@ -126,6 +134,7 @@ html {
     width: 80px;
     border-radius: 50px;
     background: linear-gradient(45deg, #2a1e0f 10%, #c78e47 70%, #2a1e0f 100%);
+    cursor: not-allowed;
 }
 
 .OponentRow {
@@ -152,6 +161,7 @@ html {
     width: 80px;
     border-radius: 50px;
     background: linear-gradient(45deg, #2a1e0f 10%, #c78e47 70%, #2a1e0f 100%);
+    cursor: not-allowed;
 }
 
 .Cavidade {
