@@ -15,12 +15,36 @@ html {
 .BotaoInstrucoes,
 .BotaoConfiguracoes,
 .BotaoClassificacoes {
+    background-color: #1f1f1f;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 12px 28px;
     margin: auto;
     font-size: 20;
+    cursor: none; /*pointer*/
+    transition-duration: 0.4s;
 }
+
+.BotaoConfiguracoes:hover,
+.BotaoInstrucoes:hover,
+.BotaoClassificacoes:hover {
+    color: #1f1f1f;
+    background-color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    transform: translateY(-4px);
+}
+
+.BotaoConfiguracoes:active,
+.BotaoInstrucoes:active,
+.BotaoClassificacoes:active {
+    transform: translateY(4px);
+}
+
 .BotaoLogin {
     margin-bottom: auto;
     font-size: 20;
+    cursor: not-allowed;
 }
 
 .Logotipo {
@@ -154,4 +178,8 @@ html {
 NEED TO TRY SMTH WITH THIS
 background: radial-gradient(ellipse at top, #e66465, transparent),
             radial-gradient(ellipse at bottom, #4d9f0c, transparent);
+
+
+Button tips:
+    https://www.w3schools.com/css/css3_buttons.asp
 */
