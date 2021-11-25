@@ -24,7 +24,8 @@ function CreateSementeHTML(cav, num, seed){
 
     //random vertical position
     //let vertPos = Math.random() * 10 + 1.25 * num_sementes - 4 * num; //Porquê 4 * index perguntas? idk mas fica bem
-    let vertPos = Math.random() * 10 - 5;
+    //let vertPos = Math.random() * 10 - 5;
+    let vertPos = Math.random() * 10 - (num / num_sementes);
     seme.style.top = vertPos + "px";
 
     //random color
@@ -195,6 +196,14 @@ class Mancala {
         while(plRow.firstChild){
             plRow.removeChild(plRow.firstChild);
         }
+        let opArma = document.getElementById("oponent_armazem");
+        while(opArma.firstChild){
+            opArma.removeChild(opArma.firstChild);
+        }
+        let plArma = document.getElementById("player_armazem");
+        while(plArma.firstChild){
+            plArma.removeChild(plArma.firstChild);
+        }
     }
 
     UpdateGameInitialHTML(){
@@ -306,6 +315,7 @@ function submit_changes(){
     num_jogadores = document.getElementById("numJogadores").value;
     whos_to_play = 1;
     jogo.UpdateGameInitialHTML();
+    toggle_visibility("configuracoes")
 }
 
 function ClickCavidade(cav){
