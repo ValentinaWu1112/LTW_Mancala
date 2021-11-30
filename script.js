@@ -98,32 +98,38 @@ class Mancala {
 
     Semear(cavidade) {
         //shouldn't even be used
-        if (cavidade == this.numCavi || cavidade == this.numCavi * 2 + 1) {
+        let ondeSemear = cavidade + 1;
+        if (cavidade == this.numCavi || cavidade == (this.numCavi * 2 + 1)) {
             alert("Error, não se pode Semear Armazens");
         }
         else if (cavidade > this.numCavi) {
             //oponent move
-            let seedsToSow = this.oponentSide.cavidades[12 - cavidade].sements;
+            let seedsToSow = this.oponentSide.cavidades[(this.numCavi * 2) - cavidade].sements;
             let quantidadeSementes = seedsToSow.length;
-            this.oponentSide.cavidades[12 - cavidade].sementes = [];
-            let ondeSemear = cavidade + 1;
+            this.oponentSide.cavidades[(this.numCavi * 2) - cavidade].sementes = [];
 
             while (quantidadeSementes > 0) {
                 if (ondeSemear == this.numCavi) { //Player's Armazem
-                    this.playerSide.armazem.AddSemente(seedsToSow.pop());
+                    //seguindo as regras -> não semear e continuar
+                    ondeSemear++; //primeira cavidade no lado do oponente
+                    continue;
                 }
-                else if (ondeSemear == this.numCavi * 2 + 1) { //Opponent's Armazem
+                else if (ondeSemear == (this.numCavi * 2 + 1)) { //Opponent's Armazem
                     this.oponentSide.armazem.AddSemente(seedsToSow.pop());
+                    if(quantidadeSementes == 1) whos_to_play = 2; //play again
                 }
-                else if (ondeSemear > this.numCavi) { //Opponent Side
-                    this.oponentSide.cavidades[12 - ondeSemear].AddSemente(seedsToSow.pop());
+                else if (ondeSemear > this.numCavi && ondeSemear < (this.numCavi * 2 + 1)) { //Opponent Side
+                    this.oponentSide.cavidades[(this.numCavi * 2) - ondeSemear].AddSemente(seedsToSow.pop());
                 }
                 else if (ondeSemear < this.numCavi) { //Player Side
                     this.playerSide.cavidades[ondeSemear].AddSemente(seedsToSow.pop());
                 }
+                else{
+                    alert("ERROR -> SEMEAR -> ondeSemear");
+                }
 
                 ondeSemear++;
-                if (ondeSemear > this.numCavi * 2 + 1) { //Opponent's Armazem
+                if (ondeSemear > (this.numCavi * 2 + 1)) { //Opponent's Armazem
                     ondeSemear = 0;
                 }
                 quantidadeSementes--;
@@ -134,27 +140,55 @@ class Mancala {
             let seedsToSow = this.playerSide.cavidades[cavidade].sements;
             let quantidadeSementes = seedsToSow.length;
             this.playerSide.cavidades[cavidade].sementes = [];
-            let ondeSemear = cavidade + 1;
 
             while (quantidadeSementes > 0) {
                 if (ondeSemear == this.numCavi) { //Player's Armazem
                     this.playerSide.armazem.AddSemente(seedsToSow.pop());
+                    if(quantidadeSementes == 1) whos_to_play = 1; //play again
                 }
-                else if (ondeSemear == this.numCavi * 2 + 1) { //Opponent's Armazem
-                    this.oponentSide.armazem.AddSemente(seedsToSow.pop());
+                else if (ondeSemear == (this.numCavi * 2 + 1)) { //Opponent's Armazem
+                    //seguindo as regras -> não semear e continuar
+                    ondeSemear++; //primeira cavidade no lado do oponente
+                    continue;
                 }
-                else if (ondeSemear > this.numCavi) { //Opponent Side
-                    this.oponentSide.cavidades[12 - ondeSemear].AddSemente(seedsToSow.pop());
+                else if (ondeSemear > this.numCavi && ondeSemear < (this.numCavi * 2 + 1)) { //Opponent Side
+                    this.oponentSide.cavidades[(this.numCavi * 2) - ondeSemear].AddSemente(seedsToSow.pop());
                 }
                 else if (ondeSemear < this.numCavi) { //Player Side
                     this.playerSide.cavidades[ondeSemear].AddSemente(seedsToSow.pop());
                 }
+                else{
+                    alert("ERROR -> SEMEAR -> ondeSemear");
+                }
 
                 ondeSemear++;
-                if (ondeSemear > this.numCavi * 2 + 1) { //Opponent's Armazem
+                if (ondeSemear > (this.numCavi * 2 + 1)) { //Opponent's Armazem
                     ondeSemear = 0;
                 }
                 quantidadeSementes--;
+            }
+        }
+
+        if(ondeSemear != 0) this.Check_Steal(ondeSemear - 1);
+    }
+
+    Check_Steal(lastCav){
+        if(lastCav > this.numCavi && whos_to_play == 1){
+            //oponent side and player's turn
+            if(this.oponentSide.cavidades[(this.numCavi * 2) - lastCav].sements.length == 1){
+                //needs to be a separated if cuz of array index 
+                var seedsToSow = this.oponentSide.cavidades[(this.numCavi * 2) - lastCav].sements; 
+                seedsToSow.push(...this.playerSide.cavidades[(this.numCavi * 2) - lastCav].sements);
+                console.log(seedsToSow);
+            }
+        }
+        if(lastCav < this.numCavi && whos_to_play == 2){
+            //player side and oponent's turn
+            if(this.playerSide.cavidades[lastCav].sements.length == 1){
+                //needs to be a separated if cuz of array index 
+                var seedsToSow = this.oponentSide.cavidades[lastCav].sements; 
+                seedsToSow.push(...this.playerSide.cavidades[lastCav].sements);
+                console.log(seedsToSow);
             }
         }
     }
@@ -315,36 +349,37 @@ function submit_changes(){
     num_jogadores = document.getElementById("numJogadores").value;
     whos_to_play = 1;
     jogo.UpdateGameInitialHTML();
-    toggle_visibility("configuracoes")
+    ChangeCursor();
+    toggle_visibility("configuracoes");
 }
 
 function ClickCavidade(cav){
     if(whos_to_play == 1 && cav >= 0 && cav < num_cavidades){
-        jogo.Semear(cav);
-        jogo.UpdateGameMiddleHTML();
         if(num_jogadores == 1){
             //TO IMPLEMENT
-            alert("NO AI IMPLEMENT YET PLEASE RETURN TO 2 PLAYER FORMAT");
+            alert("NO AI IMPLEMENTED YET PLEASE RETURN TO 2 PLAYER FORMAT");
         }
         else whos_to_play = 2;
-    }
-    else if(whos_to_play == 2 && ((+cav >= +num_cavidades + 1) && (+cav <= 2 * +num_cavidades))){
         jogo.Semear(cav);
         jogo.UpdateGameMiddleHTML();
+    }
+    else if(whos_to_play == 2 && ((+cav >= +num_cavidades + 1) && (+cav <= 2 * +num_cavidades))){
         if(num_jogadores == 1){
             //TO IMPLEMENT
-            alert("NO AI IMPLEMENT YET PLEASE RETURN TO 2 PLAYER FORMAT");
+            alert("NO AI IMPLEMENTED YET PLEASE RETURN TO 2 PLAYER FORMAT");
         }
         else whos_to_play = 1;
+        jogo.Semear(cav);
+        jogo.UpdateGameMiddleHTML();
     }
     else{
         alert("That's not a valid play, try again please");
     }
 
-    ChangePointer();
+    ChangeCursor();
 }
 
-function ChangePointer(){
+function ChangeCursor(){
     if(whos_to_play == 1){
         for(let c = 0; c < num_cavidades; c++){
             document.getElementById("player_row").children[c].style.cursor = "pointer";
@@ -375,4 +410,4 @@ var whos_to_play = 1;
 
 jogo = new Mancala(num_cavidades, num_sementes);
 jogo.CreateGameHTML();
-ChangePointer();
+ChangeCursor();
