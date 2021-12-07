@@ -198,7 +198,10 @@ html {
     padding: 20px;
     display: flex;
     flex-direction: row;
-    align-items: center
+    align-items: center;
+    
+    position: absolute;
+    transform: translate(10px, 125px);
 }
 
 .oponent_icon {
@@ -224,7 +227,10 @@ html {
     padding: 20px;
     display: flex;
     flex-direction: row;
-    align-items: center
+    align-items: center;
+
+    position: absolute;
+    transform: translate(10px, 300px);
 }
 
 .player_icon {

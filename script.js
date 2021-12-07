@@ -187,8 +187,7 @@ class Mancala {
                 for(let s = 0; s < seedsToSowPL.length; s++){
                     this.oponentSide.armazem.AddSemente(seedsToSowPL[s]);
                 }
-                console.log(seedsToSowOP);
-                console.log(seedsToSowPL);
+                seme_arm[1] = true;
             }
         }
         if(lastCav < this.numCavi && whos_to_play == 2){
@@ -205,8 +204,7 @@ class Mancala {
                 for(let s = 0; s < seedsToSowPL.length; s++){
                     this.playerSide.armazem.AddSemente(seedsToSowPL[s]);
                 }
-                console.log(seedsToSowOP);
-                console.log(seedsToSowPL);
+                seme_arm[0] = true;
             }
         }
     }
@@ -387,8 +385,8 @@ function ClickCavidade(cav){
 
         if(jogo.playerSide.cavidades[cav].sementes.length == 0){
             alert("That's not a valid play, try another move");
-            ChangeCursor();
             whos_to_play = 1;
+            ChangeCursor();
             return;
         }
         jogo.Semear(cav);
@@ -402,8 +400,8 @@ function ClickCavidade(cav){
         else whos_to_play = 1;
         if(jogo.oponentSide.cavidades[num_cavidades * 2 - cav].sementes.length == 0){
             alert("That's not a valid play, try another move");
-            ChangeCursor();
             whos_to_play = 2;
+            ChangeCursor();
             return;
         }
         jogo.Semear(cav);
