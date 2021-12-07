@@ -47,6 +47,25 @@ html {
     cursor: not-allowed;
 }
 
+.botao_submit {
+    background-color: #1f1f1f;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 12px 28px;
+    margin: auto;
+    font-size: 15;
+    cursor: pointer;
+    transition-duration: 0.4s;
+
+}
+
+.botao_submit:hover {
+    color: #1f1f1f;
+    background-color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
 .Logotipo {
     font-family: 'Aclonica';
     font-size: 60;
