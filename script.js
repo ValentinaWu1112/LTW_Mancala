@@ -347,6 +347,36 @@ class Mancala {
             }
         }    
     }
+
+    Check_end_game(){
+        if(whos_to_play == 1){
+            //player's move
+            for(let c = 0; c < this.numCavi; c++){
+                if(this.playerSide.cavidades[c].sementes.length > 0){
+                    //Has a valid play -> not end game
+                    return;
+                }
+            }
+            //Has no valid plays -> gather all seeds and end game
+            whos_to_play = 3;
+            alert("game ended");
+        }
+        else if(whos_to_play == 2){
+            //oponent's move
+            for(let c = 0; c < this.numCavi; c++){
+                if(this.oponentSide.cavidades[c].sementes.length > 0){
+                    //Has a valid play -> not end game
+                    return;
+                }
+            }
+            //Has no valid plays -> gather all seeds and end game
+            whos_to_play = 3;
+            alert("game ended");
+        }
+        else{
+            alert("error in check_end_game -> whos_to_play");
+        }
+    }
 }
 
 let lastZ = 0;
@@ -376,6 +406,7 @@ function submit_changes(){
 }
 
 function ClickCavidade(cav){
+    jogo.Check_end_game();
     if(whos_to_play == 1 && cav >= 0 && cav < num_cavidades){
         if(num_jogadores == 1){
             //TO IMPLEMENT
@@ -406,6 +437,9 @@ function ClickCavidade(cav){
         }
         jogo.Semear(cav);
         jogo.UpdateGameMiddleHTML();
+    }
+    else if(whos_to_play == 3){
+        alert("The game has already ended");
     }
     else{
         alert("That's not a valid play, try another move");
@@ -449,7 +483,7 @@ function ChangeCursor(){
         }
     }
     else if(whos_to_play == 3){
-        //maybe AI?
+        //game ended
         for(let c = 0; c < num_cavidades; c++){
             document.getElementById("player_row").children[c].style.cursor = "not-allowed";
         }
