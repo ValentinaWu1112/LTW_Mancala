@@ -150,6 +150,21 @@ html {
     border-radius: 50px;
     background: linear-gradient(45deg, #2a1e0f 10%, #c78e47 70%, #2a1e0f 100%);
     cursor: not-allowed;
+    transition-duration: 0.4s;
+}
+
+.OponentArmazem:hover{
+    filter: rgba(128, 128, 128, 0.75);
+    -webkit-filter: grayscale(75%);
+}
+
+.OponentArmazem:hover::after {
+    content: attr(data-num-seeds);
+    font-size: 40;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .OponentRow {
@@ -174,7 +189,23 @@ html {
     border-radius: 50px;
     background: linear-gradient(45deg, #2a1e0f 10%, #c78e47 70%, #2a1e0f 100%);
     cursor: not-allowed;
+    transition-duration: 0.4s;
 }
+
+.PlayerArmazem:hover::after {
+    content: attr(data-num-seeds);
+    font-size: 40;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.PlayerArmazem:hover{
+    filter: rgba(128, 128, 128, 0.75);
+    -webkit-filter: grayscale(75%);
+}
+
 
 .Cavidade {
     margin: 5px;
@@ -183,6 +214,22 @@ html {
     width: 80px;
     border-radius: 50px;
     background: linear-gradient(45deg, #2a1e0f 20%, #c78e47 70%, #2a1e0f 100%);
+    transition-duration: 0.4s;
+}
+
+
+.Cavidade:hover{
+    filter: rgba(128, 128, 128, 0.75);
+    -webkit-filter: grayscale(75%);
+}
+
+.Cavidade:hover::after {
+    content: attr(data-num-seeds);
+    font-size: 40;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .Semente {
@@ -218,6 +265,7 @@ html {
     display: flex;
     flex-direction: row;
     align-items: center;
+    transition-duration: 0.4s;
     
     position: absolute;
     transform: translate(10px, 125px);
@@ -247,6 +295,7 @@ html {
     display: flex;
     flex-direction: row;
     align-items: center;
+    transition-duration: 0.4s;  
 
     position: absolute;
     transform: translate(10px, 300px);
