@@ -171,7 +171,10 @@ class Mancala {
             }
         }
 
-        if(ondeSemear != 0) this.Check_Steal(ondeSemear - 1);
+        if(ondeSemear != 0 || ondeSemear != this.numCavi){
+            //didn't end on warehouse
+            this.Check_Steal(ondeSemear - 1);
+        }
     }
 
     Check_Steal(lastCav){
@@ -430,25 +433,50 @@ class Mancala {
         if(this.AIlevel == 0){
             //chose a random cav that's playable
             while(true){
-                var play = Math.floor(Math.random() * +this.numCavi);
-                console.log("THE AI CHOSE TO SOW CAV NUMBER: " + (+play + +this.numCavi + 1));
-                if(this.oponentSide.cavidades[play].sementes.length > 0){
+                var play = Math.floor(Math.random() * + this.numCavi);
+                console.log("AI PLAY: " + play + " It has: " + this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length + " seeds");
+                if(this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length > 0){
                     this.Semear(+play + +this.numCavi + 1);
                     return;
                 }
             }
         }
-        this.Semear(this.Check_best_play(this.AIlevel));
+        else{
+            this.Semear(this.Get_best_play(this.AIlevel));
+        }
     }
 
-    //PLACEHOLDER
-    Check_best_play(dif){        
+    Get_best_play(dif){        
         var highest_value = 0;
-        //checking allplays
+        var play = 0;
+        //checking allplays once
         for(let c = 0; c < this.numCavi; c++){
-            console.log("ERROR");
+            if(this.Acaba_semear_armazem(c, 2)){
+                return c;
+            }
+
         }
         return 0;
+    }
+
+    Acaba_semear_armazem(cav, player){
+        if(player == 1){
+            return this.playerSide.cavidades[cav].sementes.length == (this.numCavi - cav);
+        }
+        else if(player == 2){
+            return this.oponentSide.cavidades[cav].sementes.length == (this.numCavi - cav);
+        }
+        return false;
+    }
+
+    Quant_semea_lado_oposto(cav){
+        if(cav < this.numCavi){
+            return this.playerSide.cavidades[cav].sementes.length - this.numCavi;
+        }
+        else if(player == 2){
+            return this.oponentSide.cavidades[cav].sementes.length == (this.numCavi - cav);
+        }
+        return false;
     }
 }
 
@@ -479,6 +507,7 @@ function submit_changes(){
 }
 
 function ClickCavidade(cav){
+
     if(whos_to_play == 1 && cav >= 0 && cav < num_cavidades){
         whos_to_play = 2;
 
@@ -494,13 +523,14 @@ function ClickCavidade(cav){
         jogo.Check_end_game();
 
         if(num_jogadores == 1 && whos_to_play == 2){
-            whos_to_play = 1;
             do { //To cover the cases where AI has to play again
+                whos_to_play = 1;
                 jogo.AI_move();
             } while(whos_to_play == 2);
 
             jogo.UpdateGameMiddleHTML();
             jogo.Check_end_game();
+            ChangeCursor();
             return;
         }
     }
