@@ -92,6 +92,7 @@ class Mancala {
         this.numSeme = seme;
         this.playerSide = new Lado(this.numCavi, this.numSeme);
         this.oponentSide = new Lado(this.numCavi, this.numSeme);
+        this.AIlevel = 0;
     }
 
     Semear(cavidade) {
@@ -99,6 +100,7 @@ class Mancala {
         let ondeSemear = cavidade + 1;
         if (cavidade == this.numCavi || cavidade == (this.numCavi * 2 + 1)) {
             alert("Error, não se pode Semear Armazens");
+            return;
         }
         else if (cavidade > this.numCavi) {
             //oponent move
@@ -423,6 +425,31 @@ class Mancala {
         //update display
         this.UpdateGameMiddleHTML();
     }
+
+    AI_move(){
+        if(this.AIlevel == 0){
+            //chose a random cav that's playable
+            while(true){
+                var play = Math.floor(Math.random() * +this.numCavi);
+                console.log("THE AI CHOSE TO SOW CAV NUMBER: " + (+play + +this.numCavi + 1));
+                if(this.oponentSide.cavidades[play].sementes.length > 0){
+                    this.Semear(+play + +this.numCavi + 1);
+                    return;
+                }
+            }
+        }
+        this.Semear(this.Check_best_play(this.AIlevel));
+    }
+
+    //PLACEHOLDER
+    Check_best_play(dif){        
+        var highest_value = 0;
+        //checking allplays
+        for(let c = 0; c < this.numCavi; c++){
+            console.log("ERROR");
+        }
+        return 0;
+    }
 }
 
 let lastZ = 0;
@@ -453,11 +480,7 @@ function submit_changes(){
 
 function ClickCavidade(cav){
     if(whos_to_play == 1 && cav >= 0 && cav < num_cavidades){
-        if(num_jogadores == 1){
-            //TO IMPLEMENT
-            alert("NO AI IMPLEMENTED YET PLEASE RETURN TO 2 PLAYER FORMAT");
-        }
-        else whos_to_play = 2;
+        whos_to_play = 2;
 
         if(jogo.playerSide.cavidades[cav].sementes.length == 0){
             alert("That's not a valid play, try another move");
@@ -465,16 +488,25 @@ function ClickCavidade(cav){
             ChangeCursor();
             return;
         }
+
         jogo.Semear(cav);
         jogo.UpdateGameMiddleHTML();
         jogo.Check_end_game();
+
+        if(num_jogadores == 1 && whos_to_play == 2){
+            whos_to_play = 1;
+            do { //To cover the cases where AI has to play again
+                jogo.AI_move();
+            } while(whos_to_play == 2);
+
+            jogo.UpdateGameMiddleHTML();
+            jogo.Check_end_game();
+            return;
+        }
     }
     else if(whos_to_play == 2 && ((+cav >= +num_cavidades + 1) && (+cav <= 2 * +num_cavidades))){
-        if(num_jogadores == 1){
-            //TO IMPLEMENT
-            alert("NO AI IMPLEMENTED YET PLEASE RETURN TO 2 PLAYER FORMAT");
-        }
-        else whos_to_play = 1;
+        whos_to_play = 1;
+
         if(jogo.oponentSide.cavidades[num_cavidades * 2 - cav].sementes.length == 0){
             alert("That's not a valid play, try another move");
             whos_to_play = 2;

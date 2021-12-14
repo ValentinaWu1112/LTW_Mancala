@@ -295,7 +295,7 @@ html {
     display: flex;
     flex-direction: row;
     align-items: center;
-    transition-duration: 0.4s;  
+    transition-duration: 0.4s;
 
     position: absolute;
     transform: translate(10px, 300px);
