@@ -2,8 +2,10 @@
 <html>
 <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
 <!--LOGO FONT-->
-<link rel="stylesheet" href="style.css" type="text/css">
-<script type="text/javascript" src="script.js" defer></script>
+<link rel="stylesheet" href="style/header.css" type="text/css">
+<link rel="stylesheet" href="style/style.css" type="text/css">
+<link rel="stylesheet" href="style/board.css" type="text/css">
+<script type="text/javascript" src="script/script.js" defer></script>
 <div class="BarraTopo">
     <div class="Logotipo">
         MANCALA
@@ -49,6 +51,14 @@
     
     <label for="jogadores">Choose the number of players:</label> 1
     <input type="range" id="numJogadores" name="Players" min="1" max="2" value="1"> 2
+    <br><br>
+
+    <label for="who_starts">Choose who starts:</label> P1
+    <input type="range" id="who_starts" min="1" max="2" value="1"> P2
+    <br><br>
+
+    <label for="ai_diff">Choose the AI difficulty:</label> 0
+    <input type="range" id="ai_diff" min="0" max="5" value="0"> 5
     <br><br>
     
     <button class="botao_submit" onclick="submit_changes()">Submit changes</button>

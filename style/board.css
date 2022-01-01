@@ -1,0 +1,131 @@
+
+.Tabuleiro {
+    display: flex;
+    flex-direction: row;
+    height: 400px;
+    width: auto;
+    background-color: rgb(83, 83, 83);
+    border-radius: 25px;
+    /* IDK how but this centers any div*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}   
+
+.CavidadesWraper{
+    display: flex;
+    flex-direction: column;
+}
+
+.OponentArmazem {
+    position: relative;
+    margin: 25px;
+    height: 350px;
+    width: 80px;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #2a1e0f 10%, #c78e47 70%, #2a1e0f 100%);
+    cursor: not-allowed;
+    transition-duration: 0.4s;
+}
+
+.OponentArmazem:hover{
+    filter: rgba(128, 128, 128, 0.75);
+    -webkit-filter: grayscale(75%);
+}
+
+.OponentArmazem:hover::after {
+    content: attr(data-num-seeds);
+    font-size: 40;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.OponentRow {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    top: 25px;
+}
+
+.PlayerRow {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    top: 60px;
+}
+
+.PlayerArmazem {
+    position: relative;
+    margin: 25px;
+    height: 350px;
+    width: 80px;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #2a1e0f 10%, #c78e47 70%, #2a1e0f 100%);
+    cursor: not-allowed;
+    transition-duration: 0.4s;
+}
+
+.PlayerArmazem:hover::after {
+    content: attr(data-num-seeds);
+    font-size: 40;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.PlayerArmazem:hover{
+    filter: rgba(128, 128, 128, 0.75);
+    -webkit-filter: grayscale(75%);
+}
+
+
+.Cavidade {
+    margin: 5px;
+    position: relative;
+    height: 150px;
+    width: 80px;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #2a1e0f 20%, #c78e47 70%, #2a1e0f 100%);
+    transition-duration: 0.4s;
+}
+
+
+.Cavidade:hover{
+    filter: rgba(128, 128, 128, 0.75);
+    -webkit-filter: grayscale(75%);
+}
+
+.Cavidade:hover::after {
+    content: attr(data-num-seeds);
+    font-size: 40;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.Semente {
+    margin: auto;
+    height: 15px;
+    width: 30px;
+    border-radius: 50%;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -7.5px 0 0 -15px;
+}
+
+@keyframes drop_seme {
+    from {
+        transform: scale(4) rotate(0);
+    }
+    to {
+        transform: scale(1.10) rotate(360deg);
+    }
+    
+}
