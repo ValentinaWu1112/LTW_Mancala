@@ -71,7 +71,7 @@ function DropSeedHTML(cav, seed, isWarehouse){
 class Cavidade {
     constructor(numSeme) {
         this.sementes = []
-        for(let i = 0; i < numSeme; i++){
+        for (let i = 0; i < numSeme; i++) {
             this.sementes.push(new Semente([Math.random() * 255, Math.random() * 255, Math.random() * 255]));
         }
     }
@@ -81,8 +81,8 @@ class Cavidade {
     }
 
     RemoveSemente(seed) {
-        for(let i = 0; i < this.sementes.length; i++){
-            if(seed.getStr === this.sementes[i].getStr){
+        for (let i = 0; i < this.sementes.length; i++) {
+            if (seed.getStr === this.sementes[i].getStr) {
                 this.sementes.splice(i, 1);
                 break;
             }
@@ -116,7 +116,28 @@ class Lado {
     }
 }
 
-class Board {
+class Sala {
+    contructor(nome, password) {
+        this.nome = setNome(nome);
+        this.password = setPassword(password);
+        //this.tabuleiro = 
+        this.user1 = "";
+        this.user2 = "";
+    }
+
+
+    setNewUser(username) {
+        if (this.user1 == "") {
+            this.user1 = username;
+        } else if (this.user2 == "") {
+            this.user2 = username;
+        } else {
+            alert("this room is already full");
+        }
+    }
+}
+
+class Mancala {
     constructor(cavi = 6, seme = 4) {
         this.numCavi = cavi;
         this.numSeme = seme;
@@ -146,18 +167,15 @@ class Board {
                     //seguindo as regras -> não semear e continuar
                     ondeSemear++; //primeira cavidade no lado do player
                     continue;
-                }
-                else if (ondeSemear == (this.numCavi * 2 + 1)) { //Opponent's Armazem
+                } else if (ondeSemear == (this.numCavi * 2 + 1)) { //Opponent's Armazem
                     this.oponentSide.armazem.AddSemente(seedsToSow.pop());
                     if(quantidadeSementes == 1) whos_to_play = 2; //play again
                 }
                 else if (ondeSemear > this.numCavi && ondeSemear < (this.numCavi * 2 + 1)) { //Opponent Side
                     this.oponentSide.cavidades[(this.numCavi * 2) - ondeSemear].AddSemente(seedsToSow.pop());
-                }
-                else if (ondeSemear < this.numCavi) { //Player Side
+                } else if (ondeSemear < this.numCavi) { //Player Side
                     this.playerSide.cavidades[ondeSemear].AddSemente(seedsToSow.pop());
-                }
-                else{
+                } else {
                     alert("ERROR -> SEMEAR -> ondeSemear");
                 }
 
@@ -167,8 +185,7 @@ class Board {
                 }
                 quantidadeSementes--;
             }
-        }
-        else if (cavidade < this.numCavi) {
+        } else if (cavidade < this.numCavi) {
             //player move
             let cavToPickUp = this.playerSide.cavidades[cavidade]; 
             cavToPickUp.SetSeedsToMove();
@@ -185,14 +202,11 @@ class Board {
                     //seguindo as regras -> não semear e continuar
                     ondeSemear = 0; //primeira cavidade no lado do player
                     continue;
-                }
-                else if (ondeSemear > this.numCavi && ondeSemear < (this.numCavi * 2 + 1)) { //Opponent Side
+                } else if (ondeSemear > this.numCavi && ondeSemear < (this.numCavi * 2 + 1)) { //Opponent Side
                     this.oponentSide.cavidades[(this.numCavi * 2) - ondeSemear].AddSemente(seedsToSow.pop());
-                }
-                else if (ondeSemear < this.numCavi) { //Player Side
+                } else if (ondeSemear < this.numCavi) { //Player Side
                     this.playerSide.cavidades[ondeSemear].AddSemente(seedsToSow.pop());
-                }
-                else{
+                } else {
                     alert("ERROR -> SEMEAR -> ondeSemear");
                 }
 
@@ -225,14 +239,14 @@ class Board {
                 for(let s = 0; s < seedsToSowOP.length; s++){
                     this.oponentSide.armazem.AddSemente(seedsToSowOP[s]);
                 }
-                for(let s = 0; s < seedsToSowPL.length; s++){
+                for (let s = 0; s < seedsToSowPL.length; s++) {
                     this.oponentSide.armazem.AddSemente(seedsToSowPL[s]);
                 }
             }
         }
         if(lastCav < this.numCavi && lastCav >= 0 && startCav < this.numCavi && startCav >= 0){
             //player side and oponent's turn
-            if(this.playerSide.cavidades[lastCav].sementes.length == 1){
+            if (this.playerSide.cavidades[lastCav].sementes.length == 1) {
                 //needs to be a separated "if" cuz of array index 
                 let cavOP = this.oponentSide.cavidades[lastCav];
                 let cavPL = this.playerSide.cavidades[lastCav];
@@ -245,19 +259,19 @@ class Board {
                 for(let s = 0; s < seedsToSowOP.length; s++){
                     this.playerSide.armazem.AddSemente(seedsToSowOP[s]);
                 }
-                for(let s = 0; s < seedsToSowPL.length; s++){
+                for (let s = 0; s < seedsToSowPL.length; s++) {
                     this.playerSide.armazem.AddSemente(seedsToSowPL[s]);
                 }
             }
         }
     }
 
-    CreateGameHTML(){
+    CreateGameHTML() {
         //player side
-        for(let c = 0; c < this.numCavi; c++){
+        for (let c = 0; c < this.numCavi; c++) {
             let cav = document.createElement("div");
             cav.classList.add("Cavidade");
-            cav.addEventListener('click', function(){ClickCavidade(c)}, false);
+            cav.addEventListener('click', function() { ClickCavidade(c) }, false);
             cav.dataset.numSeeds = this.numSeme;
 
             for(let s = 0; s < this.numSeme; s++){
@@ -267,11 +281,11 @@ class Board {
         }
 
         //oponent side
-        for(let c = 0; c < this.numCavi; c++){
+        for (let c = 0; c < this.numCavi; c++) {
             let cav = document.createElement("div");
             cav.classList.add("Cavidade");
             let temp = +this.numCavi * 2 - +c; //Guess what this is for *facepalms in js*
-            cav.addEventListener('click', function(){ClickCavidade(temp)}, false);
+            cav.addEventListener('click', function() { ClickCavidade(temp) }, false);
             cav.dataset.numSeeds = this.numSeme;
 
             for(let s = 0; s < this.numSeme; s++){
@@ -280,41 +294,41 @@ class Board {
             document.getElementsByClassName("OponentRow")[0].appendChild(cav);
         }
 
-        
+
         let opArma = document.getElementById("oponent_armazem");
         opArma.dataset.numSeeds = 0;
         let plArma = document.getElementById("player_armazem");
         plArma.dataset.numSeeds = 0;
     }
 
-    ClearGameHTML(){
+    ClearGameHTML() {
         //clearing the previous board
         let opRow = document.getElementsByClassName("OponentRow")[0];
-        while(opRow.firstChild){
+        while (opRow.firstChild) {
             opRow.removeChild(opRow.firstChild);
         }
         let plRow = document.getElementsByClassName("PlayerRow")[0];
-        while(plRow.firstChild){
+        while (plRow.firstChild) {
             plRow.removeChild(plRow.firstChild);
         }
         let opArma = document.getElementById("oponent_armazem");
-        while(opArma.firstChild){
+        while (opArma.firstChild) {
             opArma.removeChild(opArma.firstChild);
         }
         let plArma = document.getElementById("player_armazem");
-        while(plArma.firstChild){
+        while (plArma.firstChild) {
             plArma.removeChild(plArma.firstChild);
         }
     }
 
-    UpdateGameInitialHTML(){
+    UpdateGameInitialHTML() {
         this.ClearGameHTML();
 
         this.numSeme = num_sementes;
         this.numCavi = num_cavidades;
         this.playerSide = new Lado(this.numCavi, this.numSeme);
         this.oponentSide = new Lado(this.numCavi, this.numSeme);
-        
+
         this.CreateGameHTML();
     }
 
@@ -322,20 +336,20 @@ class Board {
         let numseedsJS = 0;
         let seedsHTML = 0;
         //oponent side
-        for(let c = 0; c < this.numCavi; c++){
+        for (let c = 0; c < this.numCavi; c++) {
             seedsHTML = document.getElementById("oponent_row").children[c].children;
             numseedsJS = this.oponentSide.cavidades[c].sementes.length;
-            if(seedsHTML.length == numseedsJS){
+            if (seedsHTML.length == numseedsJS) {
                 //same size do nothing
                 continue;
             }
             let cavHTML = document.getElementById("oponent_row").children[c];
             cavHTML.dataset.numSeeds = numseedsJS;
             //removing all
-            while(cavHTML.firstChild){
+            while (cavHTML.firstChild) {
                 cavHTML.removeChild(cavHTML.firstChild);
             }
-            if(numseedsJS == 0) continue;
+            if (numseedsJS == 0) continue;
             //Adding the ones that should be there
             for(let s = 0; s < numseedsJS; s++){
                 DropSeedHTML(cavHTML, this.oponentSide.cavidades[c].sementes[s], false);
@@ -344,20 +358,20 @@ class Board {
         }
 
         //player side
-        for(let c = 0; c < this.numCavi; c++){
+        for (let c = 0; c < this.numCavi; c++) {
             seedsHTML = document.getElementById("player_row").children[c].children;
             numseedsJS = this.playerSide.cavidades[c].sementes.length;
-            if(seedsHTML.length == numseedsJS){
+            if (seedsHTML.length == numseedsJS) {
                 //same size do nothing
                 continue;
             }
             let cavHTML = document.getElementById("player_row").children[c];
             cavHTML.dataset.numSeeds = numseedsJS;
             //removing all
-            while(cavHTML.firstChild){
+            while (cavHTML.firstChild) {
                 cavHTML.removeChild(cavHTML.firstChild);
             }
-            if(numseedsJS == 0) continue;
+            if (numseedsJS == 0) continue;
             //Adding the ones that should be there
             for(let s = 0; s < numseedsJS; s++){
                 DropSeedHTML(cavHTML, this.playerSide.cavidades[c].sementes[s], false);
@@ -399,11 +413,11 @@ class Board {
     
     }
 
-    Check_end_game(){
-        if(whos_to_play == 1){
+    Check_end_game() {
+        if (whos_to_play == 1) {
             //player's move
-            for(let c = 0; c < this.numCavi; c++){
-                if(this.playerSide.cavidades[c].sementes.length > 0){
+            for (let c = 0; c < this.numCavi; c++) {
+                if (this.playerSide.cavidades[c].sementes.length > 0) {
                     //Has a valid play -> not end game
                     return;
                 }
@@ -413,11 +427,10 @@ class Board {
             alert("game ended");
             this.End_game_gather();
             return;
-        }
-        else if(whos_to_play == 2){
+        } else if (whos_to_play == 2) {
             //oponent's move
-            for(let c = 0; c < this.numCavi; c++){
-                if(this.oponentSide.cavidades[c].sementes.length > 0){
+            for (let c = 0; c < this.numCavi; c++) {
+                if (this.oponentSide.cavidades[c].sementes.length > 0) {
                     //Has a valid play -> not end game
                     return;
                 }
@@ -427,13 +440,13 @@ class Board {
             alert("game ended");
             this.End_game_gather();
             return;
-        }
-        else{
+        } else {
             alert("error in check_end_game -> whos_to_play");
         }
     }
 
-    End_game_gather(){
+
+    End_game_gather() {
         //player side
         for(let c = 0; c < this.numCavi; c++){
 
@@ -464,18 +477,24 @@ class Board {
                 }
             }
         }
-
+        if (this.playerSide.armazem.sementes > this.oponentSide.armazem.sementes) {
+            alert("player won!")
+        } else if (this.playerSide.armazem.sementes < this.oponentSide.armazem.sementes) {
+            alert("opponent won!")
+        } else {
+            alert("both players are tied")
+        }
         //update display
         this.UpdateGameHTML();
     }
 
-    AI_move(){
-        if(this.AIlevel == 0){
+    AI_move() {
+        if (this.AIlevel == 0) {
             //chose a random cav that's playable
             while(true){
                 let play = Math.floor(Math.random() * + this.numCavi);
                 console.log("AI PLAY: " + play + " It has: " + this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length + " seeds");
-                if(this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length > 0){
+                if (this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length > 0) {
                     this.Semear(+play + +this.numCavi + 1);
                     return;
                 }
@@ -527,12 +546,12 @@ class Board {
     }
 }
 
-function ClickCavidade(cav){
+function ClickCavidade(cav) {
 
-    if(whos_to_play == 1 && cav >= 0 && cav < num_cavidades){
+    if (whos_to_play == 1 && cav >= 0 && cav < num_cavidades) {
         whos_to_play = 2;
 
-        if(jogo.playerSide.cavidades[cav].sementes.length == 0){
+        if (jogo.playerSide.cavidades[cav].sementes.length == 0) {
             alert("That's not a valid play, try another move");
             whos_to_play = 1;
             ChangeCursor();
@@ -543,24 +562,23 @@ function ClickCavidade(cav){
         jogo.UpdateGameHTML();
         jogo.Check_end_game();
 
-        if(num_jogadores == 1 && whos_to_play == 2){
+        if (num_jogadores == 1 && whos_to_play == 2) {
             do { //To cover the cases where AI has to play again
                 whos_to_play = 1;
                 jogo.UpdateGameHTML();
                 //sleep(750);
                 jogo.AI_move();
-            } while(whos_to_play == 2);
+            } while (whos_to_play == 2);
 
             setTimeout(() => {  jogo.UpdateGameHTML(); }, 1000);
             jogo.Check_end_game();
             ChangeCursor();
             return;
         }
-    }
-    else if(whos_to_play == 2 && ((+cav >= +num_cavidades + 1) && (+cav <= 2 * +num_cavidades))){
+    } else if (whos_to_play == 2 && ((+cav >= +num_cavidades + 1) && (+cav <= 2 * +num_cavidades))) {
         whos_to_play = 1;
 
-        if(jogo.oponentSide.cavidades[num_cavidades * 2 - cav].sementes.length == 0){
+        if (jogo.oponentSide.cavidades[num_cavidades * 2 - cav].sementes.length == 0) {
             alert("That's not a valid play, try another move");
             whos_to_play = 2;
             ChangeCursor();
@@ -569,11 +587,9 @@ function ClickCavidade(cav){
         jogo.Semear(cav);
         jogo.UpdateGameHTML();
         jogo.Check_end_game();
-    }
-    else if(whos_to_play == 3){
+    } else if (whos_to_play == 3) {
         alert("The game has already ended");
-    }
-    else{
+    } else {
         alert("That's not a valid play, try another move");
     }
 
@@ -600,47 +616,42 @@ function ChangeColors(){
 function ChangeCursor(){
     if(whos_to_play == 1){
         //Player's move
-        for(let c = 0; c < num_cavidades; c++){
+        for (let c = 0; c < num_cavidades; c++) {
             //player side <=> allowed
-            if (jogo.playerSide.cavidades[c].sementes.length == 0){
+            if (jogo.playerSide.cavidades[c].sementes.length == 0) {
                 document.getElementById("player_row").children[c].style.cursor = "not-allowed";
-            }
-            else {
+            } else {
                 document.getElementById("player_row").children[c].style.cursor = "pointer";
             }
         }
-        for(let c = 0; c < num_cavidades; c++){
+        for (let c = 0; c < num_cavidades; c++) {
             //oponent side <=> not allowed
             document.getElementById("oponent_row").children[c].style.cursor = "not-allowed";
         }
-    }
-    else if(whos_to_play == 2){
+    } else if (whos_to_play == 2) {
         //Oponent's move
-        for(let c = 0; c < num_cavidades; c++){
+        for (let c = 0; c < num_cavidades; c++) {
             //player side <=> not allowed
             document.getElementById("player_row").children[c].style.cursor = "not-allowed";
         }
-        for(let c = 0; c < num_cavidades; c++){
+        for (let c = 0; c < num_cavidades; c++) {
             //oponent side <=> allowed
-            if (jogo.oponentSide.cavidades[c].sementes.length == 0){
+            if (jogo.oponentSide.cavidades[c].sementes.length == 0) {
                 document.getElementById("oponent_row").children[c].style.cursor = "not-allowed";
-            }
-            else {
+            } else {
                 document.getElementById("oponent_row").children[c].style.cursor = "pointer";
             }
         }
-    }
-    else if(whos_to_play == 3){
+    } else if (whos_to_play == 3) {
         //game ended
-        for(let c = 0; c < num_cavidades; c++){
+        for (let c = 0; c < num_cavidades; c++) {
             document.getElementById("player_row").children[c].style.cursor = "not-allowed";
         }
-        for(let c = 0; c < num_cavidades; c++){
+        for (let c = 0; c < num_cavidades; c++) {
             document.getElementById("oponent_row").children[c].style.cursor = "not-allowed";
-            
+
         }
-    }
-    else {
+    } else {
         alert("Error in Changepointer() -> whos_to_play");
     }
 }
