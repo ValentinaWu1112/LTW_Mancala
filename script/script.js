@@ -137,7 +137,7 @@ class Sala {
     }
 }
 
-class Mancala {
+class Board {
     constructor(cavi = 6, seme = 4) {
         this.numCavi = cavi;
         this.numSeme = seme;
