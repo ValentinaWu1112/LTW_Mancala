@@ -8,13 +8,8 @@
 |   || 0 || 1 || 2 || 3 || 4 || 5 ||   |
 |___||___||___||___||___||___||___||___|
 */
-function sleep(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-        currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
-}
+
+
 
 class Semente {
     constructor(colo){
@@ -566,7 +561,6 @@ function ClickCavidade(cav) {
             do { //To cover the cases where AI has to play again
                 whos_to_play = 1;
                 jogo.UpdateGameHTML();
-                //sleep(750);
                 jogo.AI_move();
             } while (whos_to_play == 2);
 
@@ -684,6 +678,97 @@ function submit_changes(){
     toggle_visibility("configuracoes");
 }
 
+function register(){
+
+    nick = document.getElementById("player_nick").value;
+    pass = document.getElementById("player_password").value;
+    
+    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/register',{
+        method: 'POST',
+        body: JSON.stringify({'nick':nick, 'password':pass})
+    })
+    .then(response => response.json())
+    .then(extra => {
+            console.log(extra);
+            document.getElementById("player_name").innerHTML = nick;
+            document.getElementById("login").style.display = "none";
+            join();
+    })
+}
+
+function join(){
+
+    let group = 1;
+    
+    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/join',{
+        method: 'POST',
+        body: JSON.stringify({'nick':nick, 'password':pass, 'group':group, 'size':num_cavidades, 'initial':num_sementes})
+    })
+    .then(response => response.json())
+    .then(extra => {
+        game = extra.game;
+        console.log(game);
+        update(game);
+    })
+}
+
+function leave(){
+    
+    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/leave',{
+        method: 'POST',
+        body: JSON.stringify({'nick':nick, 'password':pass, 'game':game})
+    })
+    .then(response => response.json())
+    .then(extra => {
+        //sai sempre com sucesso!
+        console.log(extra);
+    })
+
+}
+
+function notify(cav){
+    
+    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/leave',{
+        method: 'POST',
+        body: JSON.stringify({'nick':nick, 'password':pass, 'game':game, 'move':cav})
+    })
+    .then(response => response.json())
+    .then(extra => {
+        
+        console.log(extra);
+    })
+
+}
+
+function update(g){
+
+    let event = new EventSource('http://twserver.alunos.dcc.fc.up.pt:8008/update?nick=' + nick + '&game=' + g);
+    event.onerror = function(e){
+        console-log("error line 747");
+    }
+    
+    event.onmessage = function(e){
+        console.log(JSON.stringify(e));
+    }
+
+    /*
+    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/update?nick=' + nick + '&game=' + g,{
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(extra => {
+        console.log('entrou update');
+        console.log(extra.board);
+    })
+    */
+
+}
+
+
+
+function ranking(){
+
+}
 
 var num_cavidades = document.getElementById("numCavidades").value;
 var num_sementes = document.getElementById("numSementes").value;
@@ -696,46 +781,11 @@ var AIdiff = document.getElementById("ai_diff").value;
  */
 var whos_to_play = document.getElementById("who_starts").value;
 
+var nick = "";
+var password = "";
+
+
 jogo = new Board(num_cavidades, num_sementes);
 jogo.CreateGameHTML();
+var game = "";
 ChangeCursor();
-
-function functestreg(){
-        
-        
-    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/register',{
-        method: 'POST',
-        body: JSON.stringify({'nick':'olateste', 'password':'mundo'})
-        })
-        .then(response => response.json())
-        .then(extra => {
-            console.log(extra);
-        })
-
-}
-
-
-/*
-
-Parte 2
-
-
-var jsonres = "ola mundo";
-var nickToSend = 'olateste';
-if(id == 'login'){
-    
-    
-    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/register',{
-        method: 'POST',
-        body: JSON.stringify({'nick':nickToSend, 'password':'mundo'})
-        })
-        .then(response => response.json())
-        .then(extra => {
-            jsonres = extra
-            console.log(extra);
-        })
-
-}
-console.log(jsonres);
-
-*/
