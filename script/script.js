@@ -699,3 +699,43 @@ var whos_to_play = document.getElementById("who_starts").value;
 jogo = new Board(num_cavidades, num_sementes);
 jogo.CreateGameHTML();
 ChangeCursor();
+
+function functestreg(){
+        
+        
+    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/register',{
+        method: 'POST',
+        body: JSON.stringify({'nick':'olateste', 'password':'mundo'})
+        })
+        .then(response => response.json())
+        .then(extra => {
+            console.log(extra);
+        })
+
+}
+
+
+/*
+
+Parte 2
+
+
+var jsonres = "ola mundo";
+var nickToSend = 'olateste';
+if(id == 'login'){
+    
+    
+    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/register',{
+        method: 'POST',
+        body: JSON.stringify({'nick':nickToSend, 'password':'mundo'})
+        })
+        .then(response => response.json())
+        .then(extra => {
+            jsonres = extra
+            console.log(extra);
+        })
+
+}
+console.log(jsonres);
+
+*/

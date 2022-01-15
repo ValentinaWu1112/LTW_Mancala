@@ -23,10 +23,10 @@
             LOGIN
         </button>
 </div>
-<div class="Instrucoes" , id="instrucoes">
+<div class="Instrucoes" id="instrucoes">
     Escrever instruções aqui ig
 </div>
-<div class="Configuracoes" , id="configuracoes">
+<div class="Configuracoes" id="configuracoes">
 
     <label for="cavidades">Choose the number of holes per player:</label>
     <select id="numCavidades" name="cavidades" size="1">
@@ -63,11 +63,20 @@
     
     <button class="botao_submit" onclick="submit_changes()">Submit changes</button>
 </div>
-<div class="Classificacoes" , id="classificacoes">
+<div class="Classificacoes" id="classificacoes">
     Classificações aqui
 </div>
-<div class="Login" , id="login">
-    LOGIN aqui
+<div class="Login" id="login">
+
+    <form onsubmit="functestreg()">
+        <label for="RegUsername">Username: </label>
+        <input type="text" id="RegUsername" name="RegUsername">
+        <br>
+        <label for="RegPassword">Password: </label>
+        <input type="text" id="RegPassword" name="RegPassword">
+        <input type="submit" value="Submit">
+    </form>
+
 </div>
 
 <div class="oponent_info">
