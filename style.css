@@ -12,9 +12,7 @@ html {
     padding: 10px;
 }
 
-.BotaoInstrucoes,
-.BotaoConfiguracoes,
-.BotaoClassificacoes {
+.Botao {
     background-color: #1f1f1f;
     color: white;
     border-radius: 5px;
@@ -26,26 +24,25 @@ html {
     transition-duration: 0.4s;
 }
 
-.BotaoConfiguracoes:hover,
-.BotaoInstrucoes:hover,
-.BotaoClassificacoes:hover {
+.Botao:hover {
     color: #1f1f1f;
     background-color: white;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
     transform: translateY(-4px);
 }
 
-.BotaoConfiguracoes:active,
-.BotaoInstrucoes:active,
-.BotaoClassificacoes:active {
+.Botao:active {
     transform: translateY(4px);
 }
 
+
+/*
 .BotaoLogin {
     margin-bottom: auto;
     font-size: 20;
     cursor: not-allowed;
 }
+*/
 
 .botao_submit {
     background-color: #1f1f1f;
@@ -57,13 +54,12 @@ html {
     font-size: 15;
     cursor: pointer;
     transition-duration: 0.4s;
-
 }
 
 .botao_submit:hover {
     color: #1f1f1f;
     background-color: white;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
 .Logotipo {
@@ -135,9 +131,9 @@ html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}   
+}
 
-.CavidadesWraper{
+.CavidadesWraper {
     display: flex;
     flex-direction: column;
 }
@@ -153,7 +149,7 @@ html {
     transition-duration: 0.4s;
 }
 
-.OponentArmazem:hover{
+.OponentArmazem:hover {
     filter: rgba(128, 128, 128, 0.75);
     -webkit-filter: grayscale(75%);
 }
@@ -201,11 +197,10 @@ html {
     transform: translate(-50%, -50%);
 }
 
-.PlayerArmazem:hover{
+.PlayerArmazem:hover {
     filter: rgba(128, 128, 128, 0.75);
     -webkit-filter: grayscale(75%);
 }
-
 
 .Cavidade {
     margin: 5px;
@@ -217,8 +212,7 @@ html {
     transition-duration: 0.4s;
 }
 
-
-.Cavidade:hover{
+.Cavidade:hover {
     filter: rgba(128, 128, 128, 0.75);
     -webkit-filter: grayscale(75%);
 }
@@ -237,7 +231,6 @@ html {
     height: 15px;
     width: 30px;
     border-radius: 50%;
-    
     position: absolute;
     top: 50%;
     left: 50%;
@@ -251,7 +244,6 @@ html {
     to {
         transform: scale(1.10) rotate(360deg);
     }
-    
 }
 
 .oponent_info {
@@ -266,7 +258,6 @@ html {
     flex-direction: row;
     align-items: center;
     transition-duration: 0.4s;
-    
     position: absolute;
     transform: translate(10px, 125px);
 }
@@ -296,7 +287,6 @@ html {
     flex-direction: row;
     align-items: center;
     transition-duration: 0.4s;
-
     position: absolute;
     transform: translate(10px, 300px);
 }
