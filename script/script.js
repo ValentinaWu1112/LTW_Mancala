@@ -498,11 +498,21 @@ class Board {
                 }
             }
         } else if (this.AIlevel == 1) {
+            let best = Math.round(Math.random);
+            if (best) {
+                let play = this.Get_best_play(Object.assign(this), 2);
+                //console.log("AI PLAY: " + play + " It has: " + this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length + " seeds");
+                this.Semear(play);
+            } else {
+                let play = Math.floor(Math.random() * +this.numCavi);
+                if (this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length > 0) {
+                    this.Semear(+play + +this.numCavi + 1);
+                }
+            }
+        } else if (this.AIlevel == 2) {
             let play = this.Get_best_play(Object.assign(this), 2);
             //console.log("AI PLAY: " + play + " It has: " + this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length + " seeds");
             this.Semear(play);
-        } else if (this.AIlevel > 1) {
-            alert("NOT YET IMPLEMENTED");
         }
     }
 
@@ -763,8 +773,8 @@ function update(g) {
         console.log(data.board.turn);
         console.log(nick);
         console.log(nick == data.board.turn);
-        
-        if(data.board.turn != nick){
+
+        if (data.board.turn != nick) {
             document.getElementById("oponent_name").innerHTML = data.board.turn;
         }
 
