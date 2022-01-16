@@ -1,9 +1,12 @@
 .BarraBaixo {
     display: flex;
+    position: fixed;
+    left: -10px;
+    bottom: 0;
+    width: 100%;
     justify-content: space-between;
     background-color: rgb(83, 83, 83);
     padding: 10px;
-    transform: translate(0, 650%);
 }
 
 .MessageDisplayer {

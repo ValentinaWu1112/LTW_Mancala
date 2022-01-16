@@ -127,7 +127,8 @@ class Sala {
         } else if (this.user2 == "") {
             this.user2 = username;
         } else {
-            alert("this room is already full");
+            document.getElementById("message_displayer").innerHTML = "This room is already full.";
+            //alert("this room is already full");
         }
     }
 }
@@ -145,7 +146,8 @@ class Board {
         //shouldn't even be used
         let ondeSemear = cavidade + 1;
         if (cavidade == this.numCavi || cavidade == (this.numCavi * 2 + 1)) {
-            alert("Error, não se pode Semear Armazens");
+            //alert("Error, não se pode Semear Armazens");
+            document.getElementById("message_displayer").innerHTML = "You cannot sow stores.";
             return;
         } else if (cavidade > this.numCavi) {
             //oponent move
@@ -415,7 +417,8 @@ class Board {
             }
             //Has no valid plays -> gather all seeds and end game
             whos_to_play = 3;
-            alert("game ended");
+            //alert("game ended");
+            document.getElementById("message_displayer").innerHTML = "Game over.";
             this.End_game_gather();
             return;
         } else if (whos_to_play == 2) {
@@ -428,7 +431,8 @@ class Board {
             }
             //Has no valid plays -> gather all seeds and end game
             whos_to_play = 3;
-            alert("game ended");
+            //alert("game ended");
+            document.getElementById("message_displayer").innerHTML = "Game over.";
             this.End_game_gather();
             return;
         } else {
@@ -469,11 +473,14 @@ class Board {
             }
         }
         if (this.playerSide.armazem.sementes > this.oponentSide.armazem.sementes) {
-            alert("player won!")
+            document.getElementById("message_displayer").innerHTML = "Congratulations, you won!";
+            //alert("player won!")
         } else if (this.playerSide.armazem.sementes < this.oponentSide.armazem.sementes) {
-            alert("opponent won!")
+            //alert("opponent won!")
+            document.getElementById("message_displayer").innerHTML = "Opponent won. Better luck next time!";
         } else {
-            alert("both players are tied")
+            //alert("both players are tied")
+            document.getElementById("message_displayer").innerHTML = "Both player are tied. Nice match!";
         }
         //update display
         this.UpdateGameHTML();
@@ -545,7 +552,8 @@ function ClickCavidade(cav) {
         whos_to_play = 2;
 
         if (jogo.playerSide.cavidades[cav].sementes.length == 0) {
-            alert("That's not a valid play, try another move");
+            //alert("That's not a valid play, try another move");
+            document.getElementById("message_displayer").innerHTML = "Invalid play, try another move.";
             whos_to_play = 1;
             ChangeCursor();
             return;
@@ -571,7 +579,8 @@ function ClickCavidade(cav) {
         whos_to_play = 1;
 
         if (jogo.oponentSide.cavidades[num_cavidades * 2 - cav].sementes.length == 0) {
-            alert("That's not a valid play, try another move");
+            //alert("That's not a valid play, try another move");
+            document.getElementById("message_displayer").innerHTML = "Invalid play, try another move.";
             whos_to_play = 2;
             ChangeCursor();
             return;
@@ -580,9 +589,11 @@ function ClickCavidade(cav) {
         jogo.UpdateGameHTML();
         jogo.Check_end_game();
     } else if (whos_to_play == 3) {
-        alert("The game has already ended");
+        //alert("The game has already ended");
+        document.getElementById("message_displayer").innerHTML = "The game has already ended.";
     } else {
-        alert("That's not a valid play, try another move");
+        //alert("That's not a valid play, try another move");
+        document.getElementById("message_displayer").innerHTML = "Invalid play, try another move.";
     }
 
     ChangeCursor();
@@ -752,6 +763,10 @@ function update(g) {
         console.log(data.board.turn);
         console.log(nick);
         console.log(nick == data.board.turn);
+        
+        if(data.board.turn != nick){
+            document.getElementById("oponent_name").innerHTML = data.board.turn;
+        }
 
         let cav = whos_to_play == 1 ? +data.pit : +data.pit + (+num_cavidades + 1);
         jogo.Semear(cav);
