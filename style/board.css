@@ -1,4 +1,3 @@
-
 .Tabuleiro {
     display: flex;
     flex-direction: row;
@@ -11,9 +10,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}   
+}
 
-.CavidadesWraper{
+.CavidadesWraper {
     display: flex;
     flex-direction: column;
 }
@@ -29,7 +28,7 @@
     transition-duration: 0.4s;
 }
 
-.OponentArmazem:hover{
+.OponentArmazem:hover {
     filter: rgba(128, 128, 128, 0.75);
     -webkit-filter: grayscale(75%);
 }
@@ -77,11 +76,10 @@
     transform: translate(-50%, -50%);
 }
 
-.PlayerArmazem:hover{
+.PlayerArmazem:hover {
     filter: rgba(128, 128, 128, 0.75);
     -webkit-filter: grayscale(75%);
 }
-
 
 .Cavidade {
     margin: 5px;
@@ -93,8 +91,7 @@
     transition-duration: 0.4s;
 }
 
-
-.Cavidade:hover{
+.Cavidade:hover {
     filter: rgba(128, 128, 128, 0.75);
     -webkit-filter: grayscale(75%);
 }
@@ -113,7 +110,6 @@
     height: 15px;
     width: 30px;
     border-radius: 50%;
-    
     position: absolute;
     top: 50%;
     left: 50%;
@@ -127,5 +123,4 @@
     to {
         transform: scale(1.10) rotate(360deg);
     }
-    
 }
