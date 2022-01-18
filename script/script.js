@@ -812,7 +812,10 @@ function ranking() {
 
             let rank = document.getElementById('classificacoes');
             rank.innerHTML = '';
+            //Creating the table
             let table = document.createElement('table');
+
+            //Creating a row
             let tr = table.insertRow();
             let td = tr.insertCell();
             td.appendChild(document.createTextNode('Position'));
@@ -827,9 +830,7 @@ function ranking() {
             td3.appendChild(document.createTextNode('Games'));
             td3.style.width = '100px';
             
-            
-
-
+            //adding the values
             for(let i = 0; i < 10; i++){
                 let entry = temp.ranking[i]
                 tr = table.insertRow();

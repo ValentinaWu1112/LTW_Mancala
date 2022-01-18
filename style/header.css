@@ -1,6 +1,6 @@
 .BarraTopo {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     background-color: rgb(83, 83, 83);
     padding: 10px;
 }
@@ -57,8 +57,6 @@
 
 .Instrucoes {
     position: absolute;
-    top: 100px;
-    left: 225px;
     margin: 20px;
     padding: 5px;
     width: 600px;
@@ -70,12 +68,9 @@
 }
 
 .Configuracoes {
-    position: absolute;
-    top: 100px;
-    left: 450px;
     margin: 20px;
     padding: 5px;
-    width: 600px;
+    width: 450px;
     height: auto;
     border-radius: 10px;
     border: 1px solid #ffffff;
@@ -85,11 +80,8 @@
 
 .Classificacoes {
     position: absolute;
-    top: 100px;
-    left: 700px;
     margin: 20px;
-    padding: 5px;
-    width: 600px;
+    padding: 10px;
     height: auto;
     border-radius: 10px;
     border: 1px solid #ffffff;
@@ -98,12 +90,8 @@
 }
 
 .Login {
-    position: absolute;
-    top: 100px;
-    left: 700px;
-    margin: 20px;
     padding: 5px;
-    width: 600px;
+    width: 350px;
     height: auto;
     border-radius: 10px;
     border: 1px solid #ffffff;
@@ -112,10 +100,6 @@
 }
 
 .join {
-    position: absolute;
-    top: 100px;
-    left: 800px;
-    margin: 20px;
     padding: 3px;
     width: 300px;
     height: auto;
@@ -130,6 +114,11 @@
 .Configuracoes,
 .Login,
 .join {
+    margin: 5px;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%);
     display: none;
     /*inline-block*/
 }
