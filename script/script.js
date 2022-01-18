@@ -714,13 +714,14 @@ function register() {
             console.log(extra);
             document.getElementById("player_name").innerHTML = nick;
             document.getElementById("login").style.display = "none";
-            join();
+            document.getElementById("botao_join").style.display = "block";
+            document.getElementById("botao_register").style.display = "none";
         })
 }
 
 function join() {
 
-    let group = 3;
+    let group = document.getElementById("room_id").value;
 
     fetch(urlProfs + '/join', {
             method: 'POST',
@@ -731,6 +732,7 @@ function join() {
             game = extra.game;
             console.log(game);
             update(game);
+            document.getElementById("join").style.display = "none";
         })
 }
 
