@@ -6,11 +6,12 @@ const fs = require('fs');
 
 const port = process.env.PORT || 3000
 
-const server = http.createServer((req, res) => {
+const server = http.createServer((request, response) => {
     const preq = url.parse(request.url, true);
     const pathname = preq.pathname;
     let answer = {};
 
+    /*
     switch (request.method) {
         case 'GET':
             answer = doGet(pathname, request, response);
@@ -19,6 +20,29 @@ const server = http.createServer((req, res) => {
             //answer = 
         default:
             answer.status = 400;
+    }
+    */
+
+    switch(preq.pathname){
+        case '/register':
+            console.log('register in console.log');
+            response.write('register in response.write \n'); response.end();
+            const mancala = require('./server/mancala.js');
+            let game = new mancala.Mancala(6, 4, 'ola', 'teste');
+            console.log(JSON.stringify(game));
+            break;
+
+        case '/join':
+            console.log('join');
+            break;
+
+        case '/ranking':
+            console.log('ranking');
+            break;
+
+        case '/update':
+            console.log('update');
+            break;
     }
 
 
