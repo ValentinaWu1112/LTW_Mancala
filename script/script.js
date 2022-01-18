@@ -8,9 +8,6 @@
 |   || 0 || 1 || 2 || 3 || 4 || 5 ||   |
 |___||___||___||___||___||___||___||___|
 */
-
-
-
 class Semente {
     constructor(colo) {
         this.colors = colo;
@@ -488,10 +485,8 @@ class Board {
 
     AI_move() {
         if (this.AIlevel == 0) {
-            //chose a random cav that's playable
             while (true) {
                 let play = Math.floor(Math.random() * +this.numCavi);
-                //console.log("AI PLAY: " + play + " It has: " + this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length + " seeds");
                 if (this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length > 0) {
                     this.Semear(+play + +this.numCavi + 1);
                     return;
@@ -500,61 +495,68 @@ class Board {
         } else if (this.AIlevel == 1) {
             let best = Math.round(Math.random);
             if (best) {
-                let play = this.Get_best_play(Object.assign(this), 2);
-                //console.log("AI PLAY: " + play + " It has: " + this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length + " seeds");
+                let play = this.Get_best_play();
                 this.Semear(play);
             } else {
-                let play = Math.floor(Math.random() * +this.numCavi);
-                if (this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length > 0) {
-                    this.Semear(+play + +this.numCavi + 1);
+                while (true) {
+                    let play = Math.floor(Math.random() * +this.numCavi);
+                    if (this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length > 0) {
+                        this.Semear(+play + +this.numCavi + 1);
+                        return;
+                    }
                 }
             }
         } else if (this.AIlevel == 2) {
-            let play = this.Get_best_play(Object.assign(this), 2);
-            //console.log("AI PLAY: " + play + " It has: " + this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length + " seeds");
+            let play = this.Get_best_play();
+            console.log('play: ' + play);
             this.Semear(play);
         }
     }
 
-    Get_best_play(gam, turn) {
+    Get_best_play() {
         let play = 0;
+        let playScore = +this.oponentSide.armazem.sementes.length;
+        let OldScore = +this.oponentSide.armazem.sementes.length;
 
-        //Get opponent's best move
-        if (turn == 2) {
-            let highest_value = gam.oponentSide.armazem.sementes.length;
-            for (let c = 0; c < gam.numCavi; c++) {
-                console.log("for loop " + c + "    play is: " + play);
-                let temp = Object.assign(gam);
-                if (temp.oponentSide.cavidades[c].sementes.length > 0) {
-                    temp.Semear(+c + +temp.numCavi + 1);
-                    if (temp.oponentSide.armazem.sementes.length > highest_value) {
-                        play = c;
-                        highest_value = temp.oponentSide.armazem.sementes.length;
+        let aux, numS;
+
+        for(let j = 0; j < +this.numCavi; j++){
+            console.log('entrou x' + j);
+            //Sow ends on warehouse
+            console.log(this.oponentSide.cavidades[j].sementes.length);
+            console.log((+this.numCavi - j));
+            if(this.oponentSide.cavidades[j].sementes.length == (+this.numCavi - j))
+                return j + +this.numCavi + 1;
+
+            //Steals
+            if(j + 1 < +this.numCavi){
+                aux = this.oponentSide.cavidades[j].sementes.length + j;
+                if(aux < +this.numCavi){
+                    numS = this.oponentSide.cavidades[aux].sementes.length;
+                    if(numS == 0)
+                        playScore = +this.oponentSide.armazem.sementes.length + 1 + 
+                            +this.playerSide.cavidades[+this.numCavi - j - 1].sementes.length;
                     }
-                }
+            }
+
+            //Sows past warehouse
+            if(this.oponentSide.cavidades[j].sementes.length > +this.numCavi - j){
+                playScore = +this.oponentSide.armazem.sementes.length + 1;
+            }
+
+            if(OldScore < playScore){
+                play = j;
+                playScore = OldScore;
             }
         }
-        //Get player's best move
-        else if (turn == 1) {
-            let highest_value = gam.playerSide.armazem.sementes.length;
-            for (let c = 0; c < gam.numCavi; c++) {
-                let temp = Object.assign(gam);
-                if (temp.playerSide.cavidades[c].sementes.length > 0) {
-                    temp.Semear(c + temp.numCavi);
-                    if (temp.playerSide.armazem.sementes.length > highest_value) {
-                        play = c;
-                        highest_value = temp.playerSide.armazem.sementes.length;
-                    }
-                }
-            }
-        }
-        return play;
+
+        return play + +this.numCavi + 1;
     }
 }
 
 function ClickCavidade(cav) {
-    if (nick != "") {
-        notify(cav);
+    if (game != "") {
+        notify(game);
         return;
     }
 
@@ -576,7 +578,7 @@ function ClickCavidade(cav) {
         if (num_jogadores == 1 && whos_to_play == 2) {
             do { //To cover the cases where AI has to play again
                 whos_to_play = 1;
-                jogo.UpdateGameHTML();
+                setTimeout(() => { jogo.UpdateGameHTML(); }, 1000);
                 jogo.AI_move();
             } while (whos_to_play == 2);
 

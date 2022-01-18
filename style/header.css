@@ -3,6 +3,7 @@
     justify-content: space-evenly;
     background-color: rgb(83, 83, 83);
     padding: 10px;
+    flex-wrap: wrap;
 }
 
 .Botao {
