@@ -26,7 +26,7 @@ https://stackoverflow.com/questions/29911143/how-can-i-animate-the-drawing-of-te
     } else {
         gc.fillText(txt[i], x, 50);
         dashOffset = dashLen;
-        x += gc.measureText(txt[i++]).width + gc.lineWidth * Math.random();
+        x += gc.measureText(txt[i++]).width;
         if (i < txt.length) requestAnimationFrame(draw);
     }
 })();

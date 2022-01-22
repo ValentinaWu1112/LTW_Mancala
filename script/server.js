@@ -134,7 +134,8 @@ function ranking() {
 
             //adding the values
             for (let i = 0; i < 10; i++) {
-                let entry = temp.ranking[i]
+                let entry = temp.ranking[i];
+                console.log(entry);
                 tr = table.insertRow();
                 td = tr.insertCell();
                 td.appendChild(document.createTextNode(i));

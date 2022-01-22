@@ -472,18 +472,43 @@ class Board {
                 }
             }
         }
+
         if (this.playerSide.armazem.sementes > this.oponentSide.armazem.sementes) {
             document.getElementById("message_displayer").innerHTML = "Congratulations, you won!";
             //alert("player won!")
+
+            storeResult(1);
         } else if (this.playerSide.armazem.sementes < this.oponentSide.armazem.sementes) {
             //alert("opponent won!")
+            storeResult(0);
             document.getElementById("message_displayer").innerHTML = "Opponent won. Better luck next time!";
         } else {
+            storeResult(0);
             //alert("both players are tied")
             document.getElementById("message_displayer").innerHTML = "Both player are tied. Nice match!";
         }
         //update display
         this.UpdateGameHTML();
+    }
+
+
+    storeResult(won) {
+        console.log("inside store result");
+        console.log(document.getElementById("oponent_name".innerHTML));
+        console.log(document.getElementById("oponent_name".innerHTML) == Oponent);
+        if (document.getElementById("oponent_name".innerHTML == Oponent)) {
+            let classificacoes = JSON.parse(localStorage.getItem("classificacoes"));
+            for (i = 0; i < classificacoes.length(); i++) {
+                if (classificacoes[i].name == this.user1) { //será que dá problemas aqui?
+                    classificacoes[i].games++;
+                    if (won) {
+                        classificacoes[i].victories++;
+                    }
+                    console.log(classificacoes[i]);
+                }
+            }
+            localStorage.setItem(JSON.stringify(classificacoes));
+        }
     }
 
     AI_move() {
@@ -721,9 +746,22 @@ function toggle_visibility(id) {
         */
         //ranking
         if (typeof(Storage) === 'undefined') {
-            console.log('No Web Storage');
+            console.log('Web Storage not supported');
         } else {
-            const classificacoeslocais = JSON.parse(localStorage.getItem('data'));
+            let classificacoesLocais = JSON.parse(localStorage.getItem('class'));
+            if (classificacoesLocais == null) {
+                classificacoesLocais = [];
+            }
+            for (let i = 0; i < classificacoesLocais.length(); i++) {
+                let entry = classificacoesLocais[i];
+                tr = table.insertRow();
+                td = tr.insertCell();
+                td1.appendChild(document.createTextNode(entry.nick));
+                td2 = tr.insertCell();
+                td2.appendChild(document.createTextNode(entry.victories));
+                td3 = tr.insertCell();
+                td3.appendChild(document.createTextNode(entry.games));
+            }
         }
         rank.appendChild(table);
         ranking();
@@ -755,8 +793,6 @@ var AIdiff = document.getElementById("ai_diff").value;
  * 3 -> Game ended
  */
 var whos_to_play = document.getElementById("who_starts").value;
-
-
 
 
 
