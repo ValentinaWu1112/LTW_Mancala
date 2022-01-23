@@ -498,7 +498,7 @@ class Board {
         console.log(document.getElementById("oponent_name".innerHTML) == Oponent);
         if (document.getElementById("oponent_name".innerHTML == Oponent)) {
             let classificacoes = JSON.parse(localStorage.getItem("classificacoes"));
-            for (i = 0; i < classificacoes.length(); i++) {
+            for (i = 0; i < classificacoes.length; i++) {
                 if (classificacoes[i].name == this.user1) { //será que dá problemas aqui?
                     classificacoes[i].games++;
                     if (won) {
@@ -752,7 +752,7 @@ function toggle_visibility(id) {
             if (classificacoesLocais == null) {
                 classificacoesLocais = [];
             }
-            for (let i = 0; i < classificacoesLocais.length(); i++) {
+            for (let i = 0; i < classificacoesLocais.length; i++) {
                 let entry = classificacoesLocais[i];
                 tr = table.insertRow();
                 td = tr.insertCell();

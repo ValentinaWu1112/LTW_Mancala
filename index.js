@@ -4,14 +4,16 @@ const url = require('url');
 const fs = require('fs');
 //const conf = require('./conf.js');
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 9092
+
+
+const usersStorage = 'server/database/users.txt';
 
 const server = http.createServer((request, response) => {
     const preq = url.parse(request.url, true);
     const pathname = preq.pathname;
     let answer = {};
 
-    
     switch (request.method) {
         case 'GET':
             answer = doGet(pathname, request, response);
@@ -23,31 +25,6 @@ const server = http.createServer((request, response) => {
             answer.status = 400;
     }
     
-/*
-    switch(preq.pathname){
-        case '/register':
-            console.log('register in console.log');
-            response.write('register in response.write \n'); response.end();
-            const mancala = require('./server/mancala.js');
-            let game = new mancala.Mancala(6, 4, 'ola', 'teste');
-            console.log(JSON.stringify(game));
-            break;
-
-        case '/join':
-            console.log('join');
-            break;
-
-        case '/ranking':
-            console.log('ranking');
-            break;
-
-        case '/update':
-            console.log('update');
-            break;
-    }
-*/
-
-
 })
 
 server.listen(port, () => {
@@ -79,13 +56,29 @@ function doPost(pathname, request, response) {
         case '/register':
             console.log('entrou /register');
             
-            let user;
+            let users = JSON.parse(fs.readFileSync(usersStorage));
 
+            console.log(users);
+
+            let userReceived;
             request.on('data', (data) => {
-                user = JSON.parse(data);
-                console.log(user);
+                userReceived = JSON.parse(data);
                 
-                fs.writeFileSync('users.txt', JSON.stringify(user));
+                if (!userReceived.nick || !userReceived.password) {
+                    throw {message: {error: "Invalid body request."}, status: 400};
+                }
+
+                for (user of users) {
+                    if (user.nick === userReceived.nick) {
+                        if (user.password !== userReceived.password){
+                            throw {message: {error: "User registered with a different password."}, status: 401};
+                        }
+                    }
+                }
+                
+
+                users.push(userReceived);
+                fs.writeFileSync(usersStorage, JSON.stringify(users));
             });
             
             

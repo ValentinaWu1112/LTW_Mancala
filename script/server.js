@@ -1,4 +1,5 @@
 urlProfs = 'http://twserver.alunos.dcc.fc.up.pt:8008';
+urlLocal = 'http://localhost:9092';
 var nick = "";
 var password = "";
 
@@ -18,6 +19,23 @@ function register() {
             document.getElementById("login").style.display = "none";
             document.getElementById("botao_join").style.display = "block";
             document.getElementById("botao_register").style.display = "none";
+        })
+    
+    registerLocal();
+}
+
+function registerLocal() {
+
+    nick = document.getElementById("player_nick").value;
+    pass = document.getElementById("player_password").value;
+
+    fetch(urlLocal + '/register', {
+            method: 'POST',
+            body: JSON.stringify({ 'nick': nick, 'password': pass })
+        })
+        .then(response => response.json())
+        .then(extra => {
+            console.log(extra);
         })
 }
 
