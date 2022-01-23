@@ -11,18 +11,19 @@ const server = http.createServer((request, response) => {
     const pathname = preq.pathname;
     let answer = {};
 
-    /*
+    
     switch (request.method) {
         case 'GET':
             answer = doGet(pathname, request, response);
             break;
         case 'POST':
-            //answer = 
+            answer = doPost(pathname, request, response);
+            break;
         default:
             answer.status = 400;
     }
-    */
-
+    
+/*
     switch(preq.pathname){
         case '/register':
             console.log('register in console.log');
@@ -44,7 +45,7 @@ const server = http.createServer((request, response) => {
             console.log('update');
             break;
     }
-
+*/
 
 
 })
@@ -64,6 +65,31 @@ function doGet(pathname, request, response) {
             setImmediate(() =>
                 updater.update(counter.get()));
             answer.style = 'sse';
+            break;
+        default:
+            answer.status = 400;
+            break;
+    }
+    return answer;
+}
+
+function doPost(pathname, request, response) {
+    let answer = {};
+    switch (pathname) {
+        case '/register':
+            console.log('entrou /register');
+            
+            let user;
+
+            request.on('data', (data) => {
+                user = JSON.parse(data);
+                console.log(user);
+                
+                fs.writeFileSync('users.txt', JSON.stringify(user));
+            });
+            
+            
+            console.log('saiu /register');
             break;
         default:
             answer.status = 400;

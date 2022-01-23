@@ -704,6 +704,8 @@ function submit_changes() {
 
 function register() {
 
+    registerLocal();
+
     nick = document.getElementById("player_nick").value;
     pass = document.getElementById("player_password").value;
 
@@ -718,6 +720,22 @@ function register() {
             document.getElementById("login").style.display = "none";
             document.getElementById("botao_join").style.display = "block";
             document.getElementById("botao_register").style.display = "none";
+        })
+}
+
+function registerLocal() {
+
+    nick = 'ola';
+    pass = 'mundo';
+
+    fetch(urlLocal + '/register', {
+            mode: 'no-cors',
+            method: 'POST',
+            body: JSON.stringify({ 'nick': nick, 'password': pass })
+        })
+        .then(response => response.json())
+        .then(extra => {
+            console.log(extra);
         })
 }
 
@@ -865,6 +883,7 @@ var whos_to_play = document.getElementById("who_starts").value;
 var nick = "";
 var password = "";
 urlProfs = 'http://twserver.alunos.dcc.fc.up.pt:8008';
+urlLocal = 'http://localhost:3000';
 
 
 jogo = new Board(num_cavidades, num_sementes);
