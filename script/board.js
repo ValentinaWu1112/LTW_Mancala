@@ -8,6 +8,9 @@
 |   || 0 || 1 || 2 || 3 || 4 || 5 ||   |
 |___||___||___||___||___||___||___||___|
 */
+
+
+
 class Semente {
     constructor(colo) {
         this.colors = colo;
@@ -469,13 +472,18 @@ class Board {
                 }
             }
         }
+
         if (this.playerSide.armazem.sementes > this.oponentSide.armazem.sementes) {
             document.getElementById("message_displayer").innerHTML = "Congratulations, you won!";
             //alert("player won!")
+
+            storeResult(1);
         } else if (this.playerSide.armazem.sementes < this.oponentSide.armazem.sementes) {
             //alert("opponent won!")
+            storeResult(0);
             document.getElementById("message_displayer").innerHTML = "Opponent won. Better luck next time!";
         } else {
+            storeResult(0);
             //alert("both players are tied")
             document.getElementById("message_displayer").innerHTML = "Both player are tied. Nice match!";
         }
@@ -483,10 +491,32 @@ class Board {
         this.UpdateGameHTML();
     }
 
+
+    storeResult(won) {
+        console.log("inside store result");
+        console.log(document.getElementById("oponent_name".innerHTML));
+        console.log(document.getElementById("oponent_name".innerHTML) == Oponent);
+        if (document.getElementById("oponent_name".innerHTML == Oponent)) {
+            let classificacoes = JSON.parse(localStorage.getItem("classificacoes"));
+            for (i = 0; i < classificacoes.length(); i++) {
+                if (classificacoes[i].name == this.user1) { //será que dá problemas aqui?
+                    classificacoes[i].games++;
+                    if (won) {
+                        classificacoes[i].victories++;
+                    }
+                    console.log(classificacoes[i]);
+                }
+            }
+            localStorage.setItem(JSON.stringify(classificacoes));
+        }
+    }
+
     AI_move() {
         if (this.AIlevel == 0) {
+            //chose a random cav that's playable
             while (true) {
                 let play = Math.floor(Math.random() * +this.numCavi);
+                //console.log("AI PLAY: " + play + " It has: " + this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length + " seeds");
                 if (this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length > 0) {
                     this.Semear(+play + +this.numCavi + 1);
                     return;
@@ -495,68 +525,61 @@ class Board {
         } else if (this.AIlevel == 1) {
             let best = Math.round(Math.random);
             if (best) {
-                let play = this.Get_best_play();
+                let play = this.Get_best_play(Object.assign(this), 2);
+                //console.log("AI PLAY: " + play + " It has: " + this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length + " seeds");
                 this.Semear(play);
             } else {
-                while (true) {
-                    let play = Math.floor(Math.random() * +this.numCavi);
-                    if (this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length > 0) {
-                        this.Semear(+play + +this.numCavi + 1);
-                        return;
-                    }
+                let play = Math.floor(Math.random() * +this.numCavi);
+                if (this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length > 0) {
+                    this.Semear(+play + +this.numCavi + 1);
                 }
             }
         } else if (this.AIlevel == 2) {
-            let play = this.Get_best_play();
-            console.log('play: ' + play);
+            let play = this.Get_best_play(Object.assign(this), 2);
+            //console.log("AI PLAY: " + play + " It has: " + this.oponentSide.cavidades[this.numCavi - +play - 1].sementes.length + " seeds");
             this.Semear(play);
         }
     }
 
-    Get_best_play() {
+    Get_best_play(gam, turn) {
         let play = 0;
-        let playScore = +this.oponentSide.armazem.sementes.length;
-        let OldScore = +this.oponentSide.armazem.sementes.length;
 
-        let aux, numS;
-
-        for(let j = 0; j < +this.numCavi; j++){
-            console.log('entrou x' + j);
-            //Sow ends on warehouse
-            console.log(this.oponentSide.cavidades[j].sementes.length);
-            console.log((+this.numCavi - j));
-            if(this.oponentSide.cavidades[j].sementes.length == (+this.numCavi - j))
-                return j + +this.numCavi + 1;
-
-            //Steals
-            if(j + 1 < +this.numCavi){
-                aux = this.oponentSide.cavidades[j].sementes.length + j;
-                if(aux < +this.numCavi){
-                    numS = this.oponentSide.cavidades[aux].sementes.length;
-                    if(numS == 0)
-                        playScore = +this.oponentSide.armazem.sementes.length + 1 + 
-                            +this.playerSide.cavidades[+this.numCavi - j - 1].sementes.length;
+        //Get opponent's best move
+        if (turn == 2) {
+            let highest_value = gam.oponentSide.armazem.sementes.length;
+            for (let c = 0; c < gam.numCavi; c++) {
+                console.log("for loop " + c + "    play is: " + play);
+                let temp = Object.assign(gam);
+                if (temp.oponentSide.cavidades[c].sementes.length > 0) {
+                    temp.Semear(+c + +temp.numCavi + 1);
+                    if (temp.oponentSide.armazem.sementes.length > highest_value) {
+                        play = c;
+                        highest_value = temp.oponentSide.armazem.sementes.length;
                     }
-            }
-
-            //Sows past warehouse
-            if(this.oponentSide.cavidades[j].sementes.length > +this.numCavi - j){
-                playScore = +this.oponentSide.armazem.sementes.length + 1;
-            }
-
-            if(OldScore < playScore){
-                play = j;
-                playScore = OldScore;
+                }
             }
         }
-
-        return play + +this.numCavi + 1;
+        //Get player's best move
+        else if (turn == 1) {
+            let highest_value = gam.playerSide.armazem.sementes.length;
+            for (let c = 0; c < gam.numCavi; c++) {
+                let temp = Object.assign(gam);
+                if (temp.playerSide.cavidades[c].sementes.length > 0) {
+                    temp.Semear(c + temp.numCavi);
+                    if (temp.playerSide.armazem.sementes.length > highest_value) {
+                        play = c;
+                        highest_value = temp.playerSide.armazem.sementes.length;
+                    }
+                }
+            }
+        }
+        return play;
     }
 }
 
 function ClickCavidade(cav) {
-    if (game != "") {
-        notify(game);
+    if (nick != "") {
+        notify(cav);
         return;
     }
 
@@ -578,7 +601,7 @@ function ClickCavidade(cav) {
         if (num_jogadores == 1 && whos_to_play == 2) {
             do { //To cover the cases where AI has to play again
                 whos_to_play = 1;
-                setTimeout(() => { jogo.UpdateGameHTML(); }, 1000);
+                jogo.UpdateGameHTML();
                 jogo.AI_move();
             } while (whos_to_play == 2);
 
@@ -685,7 +708,62 @@ function toggle_visibility(id) {
     //lastZ might explode withput this
     if (lastZ > 64) lastZ = 0;
 
-    if(id == 'classificacoes'){
+    if (id == 'classificacoes') {
+        let rank = document.getElementById('classificacoes');
+        rank.innerHTML = '';
+        //Creating the table
+        let table = document.createElement('table');
+
+        //Creating a row
+        let tr = table.insertRow();
+        let td = tr.insertCell();
+        td.appendChild(document.createTextNode('Position'));
+        td.style.width = '100px';
+        let td1 = tr.insertCell();
+        td1.appendChild(document.createTextNode('Nick'));
+        td1.style.width = '200px';
+        let td2 = tr.insertCell();
+        td2.appendChild(document.createTextNode('Victories'));
+        td2.style.width = '100px';
+        let td3 = tr.insertCell();
+        td3.appendChild(document.createTextNode('Games'));
+        td3.style.width = '100px';
+
+        /*
+                //adding the values
+                for (let i = 0; i < 10; i++) {
+                    let entry = temp.ranking[i]
+                    tr = table.insertRow();
+                    td = tr.insertCell();
+                    td.appendChild(document.createTextNode(i));
+                    td1 = tr.insertCell();
+                    td1.appendChild(document.createTextNode(entry.nick));
+                    td2 = tr.insertCell();
+                    td2.appendChild(document.createTextNode(entry.victories));
+                    td3 = tr.insertCell();
+                    td3.appendChild(document.createTextNode(entry.games));
+                }
+        */
+        //ranking
+        if (typeof(Storage) === 'undefined') {
+            console.log('Web Storage not supported');
+        } else {
+            let classificacoesLocais = JSON.parse(localStorage.getItem('class'));
+            if (classificacoesLocais == null) {
+                classificacoesLocais = [];
+            }
+            for (let i = 0; i < classificacoesLocais.length(); i++) {
+                let entry = classificacoesLocais[i];
+                tr = table.insertRow();
+                td = tr.insertCell();
+                td1.appendChild(document.createTextNode(entry.nick));
+                td2 = tr.insertCell();
+                td2.appendChild(document.createTextNode(entry.victories));
+                td3 = tr.insertCell();
+                td3.appendChild(document.createTextNode(entry.games));
+            }
+        }
+        rank.appendChild(table);
         ranking();
     }
 }
@@ -702,172 +780,8 @@ function submit_changes() {
     toggle_visibility("configuracoes");
 }
 
-function register() {
-
-    registerLocal();
-
-    nick = document.getElementById("player_nick").value;
-    pass = document.getElementById("player_password").value;
-
-    fetch(urlProfs + '/register', {
-            method: 'POST',
-            body: JSON.stringify({ 'nick': nick, 'password': pass })
-        })
-        .then(response => response.json())
-        .then(extra => {
-            console.log(extra);
-            document.getElementById("player_name").innerHTML = nick;
-            document.getElementById("login").style.display = "none";
-            document.getElementById("botao_join").style.display = "block";
-            document.getElementById("botao_register").style.display = "none";
-        })
-}
-
-function registerLocal() {
-
-    nick = 'ola';
-    pass = 'mundo';
-
-    fetch(urlLocal + '/register', {
-            mode: 'no-cors',
-            method: 'POST',
-            body: JSON.stringify({ 'nick': nick, 'password': pass })
-        })
-        .then(response => response.json())
-        .then(extra => {
-            console.log(extra);
-        })
-}
-
-function join() {
-
-    let group = document.getElementById("room_id").value;
-
-    fetch(urlProfs + '/join', {
-            method: 'POST',
-            body: JSON.stringify({ 'nick': nick, 'password': pass, 'group': group, 'size': num_cavidades, 'initial': num_sementes })
-        })
-        .then(response => response.json())
-        .then(extra => {
-            game = extra.game;
-            console.log(game);
-            update(game);
-            document.getElementById("join").style.display = "none";
-        })
-}
-
-function leave() {
-
-    fetch(urlProfs + '/leave', {
-            method: 'POST',
-            body: JSON.stringify({ 'nick': nick, 'password': pass, 'game': game })
-        })
-        .then(response => response.json())
-        .then(extra => {
-            //sai sempre com sucesso!
-            console.log(extra);
-        })
-
-}
-
-function notify(cav) {
-
-    fetch(urlProfs + '/notify', {
-            method: 'POST',
-            body: JSON.stringify({ 'nick': nick, 'password': pass, 'game': game, 'move': cav })
-        })
-        .then(response => response.json())
-        .then(extra => {
-
-            console.log(extra);
-        })
-
-}
-
-function update(g) {
-
-    let event = new EventSource(urlProfs + '/update?nick=' + nick + '&game=' + g);
-    event.onerror = function(e) {
-        console.log("error line 747");
-    }
-
-    event.onmessage = function(e) {
-        let data = JSON.parse(e.data);
-
-        if (data.board.turn != nick) {
-            document.getElementById("oponent_name").innerHTML = data.board.turn;
-        }
-
-        let cav = whos_to_play == 1 ? +data.pit : +data.pit + (+num_cavidades + 1);
-        jogo.Semear(cav);
-        whos_to_play = data.board.turn == nick ? 1 : 2;
-        jogo.UpdateGameHTML();
-        ChangeCursor();
-        ChangeColors();
-    }
-
-}
 
 
-function ranking() {
-
-    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/ranking', {
-            method: 'POST',
-            body: JSON.stringify({}),
-        })
-        .then(response => response.json())
-        .then(temp => {
-            /*
-                0: {nick: 'abcdefghidasdas', victories: 454, games: 643}
-                1: {nick: '123', victories: 324, games: 755}
-                2: {nick: 'abcdefghi', victories: 189, games: 643}
-                3: {nick: 'a', victories: 136, games: 262}
-                4: {nick: 'group_21a', victories: 107, games: 167}
-                5: {nick: 'amigo', victories: 101, games: 174}
-                6: {nick: 'ola1', victories: 98, games: 180}
-                7: {nick: 'dom11', victories: 97, games: 141}
-                8: {nick: 'lol271998_', victories: 96, games: 134}
-                9: {nick: 'owo', victories: 90, games: 167}
-            */
-
-            let rank = document.getElementById('classificacoes');
-            rank.innerHTML = '';
-            //Creating the table
-            let table = document.createElement('table');
-
-            //Creating a row
-            let tr = table.insertRow();
-            let td = tr.insertCell();
-            td.appendChild(document.createTextNode('Position'));
-            td.style.width = '100px';
-            let td1 = tr.insertCell();
-            td1.appendChild(document.createTextNode('Nick'));
-            td1.style.width = '200px';
-            let td2 = tr.insertCell();
-            td2.appendChild(document.createTextNode('Victories'));
-            td2.style.width = '100px';
-            let td3 = tr.insertCell();
-            td3.appendChild(document.createTextNode('Games'));
-            td3.style.width = '100px';
-            
-            //adding the values
-            for(let i = 0; i < 10; i++){
-                let entry = temp.ranking[i]
-                tr = table.insertRow();
-                td = tr.insertCell();
-                td.appendChild(document.createTextNode(i));
-                td1 = tr.insertCell();
-                td1.appendChild(document.createTextNode(entry.nick));
-                td2 = tr.insertCell();
-                td2.appendChild(document.createTextNode(entry.victories));
-                td3 = tr.insertCell();
-                td3.appendChild(document.createTextNode(entry.games));
-            }
-
-            rank.appendChild(table);
-
-        })
-}
 
 var num_cavidades = document.getElementById("numCavidades").value;
 var num_sementes = document.getElementById("numSementes").value;
@@ -880,10 +794,6 @@ var AIdiff = document.getElementById("ai_diff").value;
  */
 var whos_to_play = document.getElementById("who_starts").value;
 
-var nick = "";
-var password = "";
-urlProfs = 'http://twserver.alunos.dcc.fc.up.pt:8008';
-urlLocal = 'http://localhost:3000';
 
 
 jogo = new Board(num_cavidades, num_sementes);

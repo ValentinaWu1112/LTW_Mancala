@@ -47,24 +47,14 @@
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
-.Logotipo {
-    font-family: 'Aclonica';
-    font-size: 60;
-    cursor: pointer;
-    /*
-    When clicked return to "home" page -> later
-    */
-}
-
 .Instrucoes {
     position: absolute;
     margin: 20px;
-    padding: 5px;
-    width: 600px;
+    padding: 10px;
     height: auto;
     border-radius: 10px;
     border: 1px solid #ffffff;
-    background-color: rgba(50, 50, 50, 0.95);
+    background-color: rgba(50, 50, 50, 0.75);
     display: block;
 }
 

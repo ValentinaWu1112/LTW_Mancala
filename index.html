@@ -6,25 +6,29 @@
 <link rel="stylesheet" href="style/style.css" type="text/css">
 <link rel="stylesheet" href="style/board.css" type="text/css">
 <link rel="stylesheet" href="style/footer.css" type="text/css">
-<script type="text/javascript" src="script/script.js" defer></script>
+<script type="text/javascript" src="script/board.js" defer></script>
+<script type="text/javascript" src="script/server.js" defer></script>
+<script type="text/javascript" src="script/canvas.js" defer></script>
 <div class="BarraTopo">
-    <div class="Logotipo">
+    <canvas id=mancala width=300 height=70></canvas>
+    <!--<div class="Logotipo">
         MANCALA
-    </div>
+    </div>-->
 
     <!-- Instruções -->
     <div style="position: relative; display: flex; flex-direction: column; justify-content: center; margin: auto;">
         <button class="Botao" type="button" onclick="toggle_visibility('instrucoes');">
             Instruções
         </button>
-        
+
         <div class="Instrucoes" , id="instrucoes" hidden>
             <p>Basic Rules: Play always moves around the board in a counter-clockwise circle (to the right) <br> The store on your right belongs to you. That is where you keep the seeds you win.
                 <br>The pits near you are your pits. <br> To "sow" a pit use your mouse to left-click on it. </p>
-            <p>Starting the Game: On a turn, a player picks up all the seeds in one pit and “sows” them to the right, placing one seed in each of the pits along the way. If you come to your store, then add a seed to your store and continue. You may end up putting
-                seeds in your opponent’s pits along the way. Play alternates back and forth, with opponents picking up the seeds in one of their pits and distributing them one at a time into the pits on the right, beginning in the pit immediately to the right.</p>
-            <p> Special Rules: When the last seed in your hand lands in your store, take another turn. <br>When the last seed in your hand lands in one of your own pits, if that pit had been empty you get to keep all of the seeds in your opponents pit on the opposite
-                side. Put those captured seeds, as well as the last seed that you just played on your side, into the store. </p>
+            <p>Starting the Game: On a turn, a player picks up all the seeds in one pit and “sows” them to the right, placing one seed in each of the pits along the way. If you come to your store, then add a seed to your store and continue. You may end up
+                putting seeds in your opponent’s pits along the way. Play alternates back and forth, with opponents picking up the seeds in one of their pits and distributing them one at a time into the pits on the right, beginning in the pit immediately
+                to the right.</p>
+            <p> Special Rules: When the last seed in your hand lands in your store, take another turn. <br>When the last seed in your hand lands in one of your own pits, if that pit had been empty you get to keep all of the seeds in your opponents pit on
+                the opposite side. Put those captured seeds, as well as the last seed that you just played on your side, into the store. </p>
             <p>Ending the Game: The game is over when one player’s pits are completely empty. The other player takes the seeds remaining in her pits and puts those seeds in her store. Count up the seeds. Whoever has the most seeds wins. </p>
             <p>Intructions similar to these can be found at https://harriscenter.org/wp-content/uploads/2020/03/mancala_rules.pdf </p>
         </div>
@@ -35,7 +39,7 @@
         <button class="Botao" type="button" onclick="toggle_visibility('configuracoes');">
             Configurações
         </button>
-        
+
         <div class="Configuracoes" , id="configuracoes">
 
             <label for="cavidades">Choose the number of holes per player:</label>
@@ -93,14 +97,14 @@
 
             <label for="player_nick">Player nick (3 to 20 characters):</label>
             <input type="text" id="player_nick" name="player_nick" required minlength="3" maxlength="20"><br>
-        
+
             <label for="player_password">Player password (3 to 20 characters):</label>
             <input type="text" id="player_password" name="player_password" required minlength="3" maxlength="20"><br>
-        
+
             <button class="botao_submit" onclick="register()">Submit</button>
         </div>
     </div>
-    
+
     <!-- Join Room -->
     <div style="position: relative; display: flex; flex-direction: column; justify-content: center; margin: auto;">
         <button id="botao_join" class="Botao" type="button" onclick="toggle_visibility('join');" hidden>
@@ -112,20 +116,20 @@
             <input type="number" id="room_id" name="room_id" min="1" max="100" value="1" placeholder="Choose your room">
             <br>
             <button class="botao_submit" onclick="join()">Join</button>
-        </div>        
+        </div>
     </div>
 </div>
 
 <div class="oponent_info">
     <img class="oponent_icon" src="https://st.depositphotos.com/1779253/5140/v/600/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg">
     <div class="oponent_name" id="oponent_name">
-        First Last Oponent
+        Oponent
     </div>
 </div>
 <div class="player_info">
     <img class="player_icon" src="https://st.depositphotos.com/1779253/5140/v/600/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg">
     <div class="player_name" id="player_name">
-        First Last Player
+        Player
     </div>
 </div>
 <div class="Tabuleiro">
@@ -148,6 +152,7 @@
     <button class="Botao" type="button" onclick=leave()>
             Forfeit
         </button>
+
 </div>
 
 </html>
