@@ -5,9 +5,30 @@ const fs = require('fs');
 //const conf = require('./conf.js');
 
 const port = process.env.PORT || 9092
-
+const headers = {
+    plain: {
+        'Content-Type': 'application/javascript',
+        'Cache-Control': 'no-cache',
+        'Access-Control-Allow-Origin': '*'
+    },
+    sse: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+        'Connection': 'keep-alive'
+    },
+    cors: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Credentials': 'false',
+        'Access-Control-Allow-Headers': 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept',
+        'Access-Control-Max-Age': '86400'
+    }
+}
 
 const usersStorage = 'server/database/users.txt';
+const rankStorage = 'server/database/rank.json';
+
 
 const server = http.createServer((request, response) => {
     const preq = url.parse(request.url, true);
@@ -51,14 +72,10 @@ function doGet(pathname, request, response) {
 }
 
 function doPost(pathname, request, response) {
-    let answer = {};
+    let answer = {style: 'plain', status: 200};
     switch (pathname) {
         case '/register':
-            console.log('entrou /register');
-            
             let users = JSON.parse(fs.readFileSync(usersStorage));
-
-            console.log(users);
 
             let userReceived;
             request.on('data', (data) => {
@@ -76,18 +93,25 @@ function doPost(pathname, request, response) {
                     }
                 }
                 
-
                 users.push(userReceived);
                 fs.writeFileSync(usersStorage, JSON.stringify(users));
             });
-            
-            
-            console.log('saiu /register');
+            answer.body = {};
             break;
+
+        case '/ranking':
+            let rank = JSON.parse(fs.readFileSync(rankStorage));
+            console.log({ranking: rank.slice(0, 10)});
+            answer.body = {ranking: rank.slice(0, 10)};
+            break;
+
         default:
             answer.status = 400;
             break;
     }
+
+    response.writeHead(answer.status, headers[answer.style]);
+    response.end(JSON.stringify(answer.body));
     return answer;
 }
 

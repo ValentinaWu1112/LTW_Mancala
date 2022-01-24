@@ -493,9 +493,6 @@ class Board {
 
 
     storeResult(won) {
-        console.log("inside store result");
-        console.log(document.getElementById("oponent_name".innerHTML));
-        console.log(document.getElementById("oponent_name".innerHTML) == Oponent);
         if (document.getElementById("oponent_name".innerHTML == Oponent)) {
             let classificacoes = JSON.parse(localStorage.getItem("classificacoes"));
             for (i = 0; i < classificacoes.length; i++) {
@@ -504,7 +501,6 @@ class Board {
                     if (won) {
                         classificacoes[i].victories++;
                     }
-                    console.log(classificacoes[i]);
                 }
             }
             localStorage.setItem(JSON.stringify(classificacoes));
@@ -548,7 +544,6 @@ class Board {
         if (turn == 2) {
             let highest_value = gam.oponentSide.armazem.sementes.length;
             for (let c = 0; c < gam.numCavi; c++) {
-                console.log("for loop " + c + "    play is: " + play);
                 let temp = Object.assign(gam);
                 if (temp.oponentSide.cavidades[c].sementes.length > 0) {
                     temp.Semear(+c + +temp.numCavi + 1);
@@ -746,7 +741,6 @@ function toggle_visibility(id) {
         */
         //ranking
         if (typeof(Storage) === 'undefined') {
-            console.log('Web Storage not supported');
         } else {
             let classificacoesLocais = JSON.parse(localStorage.getItem('class'));
             if (classificacoesLocais == null) {

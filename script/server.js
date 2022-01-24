@@ -1,5 +1,6 @@
 urlProfs = 'http://twserver.alunos.dcc.fc.up.pt:8008';
 urlLocal = 'http://localhost:9092';
+urlserver= 'http://twserver.alunos.dcc.fc.up.pt:9092';
 var nick = "";
 var password = "";
 
@@ -14,7 +15,6 @@ function register() {
         })
         .then(response => response.json())
         .then(extra => {
-            console.log(extra);
             document.getElementById("player_name").innerHTML = nick;
             document.getElementById("login").style.display = "none";
             document.getElementById("botao_join").style.display = "block";
@@ -29,13 +29,12 @@ function registerLocal() {
     nick = document.getElementById("player_nick").value;
     pass = document.getElementById("player_password").value;
 
-    fetch(urlLocal + '/register', {
+    fetch(urlserver + '/register', {
             method: 'POST',
             body: JSON.stringify({ 'nick': nick, 'password': pass })
         })
         .then(response => response.json())
         .then(extra => {
-            console.log(extra);
         })
 }
 
@@ -50,7 +49,6 @@ function join() {
         .then(response => response.json())
         .then(extra => {
             game = extra.game;
-            console.log(game);
             update(game);
             document.getElementById("join").style.display = "none";
         })
@@ -65,7 +63,6 @@ function leave() {
         .then(response => response.json())
         .then(extra => {
             //sai sempre com sucesso!
-            console.log(extra);
         })
 
 }
@@ -78,8 +75,6 @@ function notify(cav) {
         })
         .then(response => response.json())
         .then(extra => {
-
-            console.log(extra);
         })
 
 }
@@ -111,24 +106,15 @@ function update(g) {
 
 function ranking() {
 
-    fetch('http://twserver.alunos.dcc.fc.up.pt:8008/ranking', {
+    /*
+    fetch(urlProfs + '/ranking', {
+    */
+    fetch(urlserver + '/ranking', {
             method: 'POST',
             body: JSON.stringify({}),
         })
         .then(response => response.json())
         .then(temp => {
-            /*
-                0: {nick: 'abcdefghidasdas', victories: 454, games: 643}
-                1: {nick: '123', victories: 324, games: 755}
-                2: {nick: 'abcdefghi', victories: 189, games: 643}
-                3: {nick: 'a', victories: 136, games: 262}
-                4: {nick: 'group_21a', victories: 107, games: 167}
-                5: {nick: 'amigo', victories: 101, games: 174}
-                6: {nick: 'ola1', victories: 98, games: 180}
-                7: {nick: 'dom11', victories: 97, games: 141}
-                8: {nick: 'lol271998_', victories: 96, games: 134}
-                9: {nick: 'owo', victories: 90, games: 167}
-            */
 
             let rank = document.getElementById('classificacoes');
             rank.innerHTML = '';
@@ -153,7 +139,6 @@ function ranking() {
             //adding the values
             for (let i = 0; i < 10; i++) {
                 let entry = temp.ranking[i];
-                console.log(entry);
                 tr = table.insertRow();
                 td = tr.insertCell();
                 td.appendChild(document.createTextNode(i));
